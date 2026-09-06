@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>DailyFarma</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- =========================
+       AUTH SCREEN
+  ========================== -->
+
+  <div class="auth-screen" id="auth-screen">
+
+    <div class="auth-card">
+
+      <div class="auth-logo">
+        💊
+      </div>
+
+      <h1>DailyFarma</h1>
+
+      <p class="auth-subtitle">
+        Leer farmacie. Elke dag een beetje beter.
+      </p>
+
+
+      <!-- AUTH TABS -->
+
+      <div class="auth-tabs">
+
+        <button
+          class="auth-tab active"
+          id="login-tab"
+          type="button"
+        >
+          Inloggen
+        </button>
+
+        <button
+          class="auth-tab"
+          id="register-tab"
+          type="button"
+        >
+          Account maken
+        </button>
+
+      </div>
+
+
+      <!-- LOGIN FORM -->
+
+      <form id="login-form" class="auth-form">
+
+        <label for="login-email">
+          E-mailadres
+        </label>
+
+        <input
+          id="login-email"
+          type="email"
+          placeholder="jij@email.nl"
+          required
+        >
+
+
+        <label for="login-password">
+          Wachtwoord
+        </label>
+
+        <input
+          id="login-password"
+          type="password"
+          placeholder="••••••••"
+          required
+        >
+
+
+        <button
+          class="auth-submit"
+          type="submit"
+        >
+          Inloggen →
+        </button>
+
+      </form>
+
+
+      <!-- REGISTER FORM -->
+
+      <form
+        id="register-form"
+        class="auth-form hidden"
+      >
+
+        <label for="register-username">
+          Gebruikersnaam
+        </label>
+
+        <input
+          id="register-username"
+          type="text"
+          placeholder="Bijvoorbeeld: Anna"
+          required
+        >
+
+
+        <label for="register-email">
+          E-mailadres
+        </label>
+
+        <input
+          id="register-email"
+          type="email"
+          placeholder="jij@email.nl"
+          required
+        >
+
+
+        <label for="register-password">
+          Wachtwoord
+        </label>
+
+        <input
+          id="register-password"
+          type="password"
+          placeholder="Minimaal 6 tekens"
+          minlength="6"
+          required
+        >
+
+
+        <label for="register-study-year">
+          Studiejaar
+        </label>
+
+        <select
+          id="register-study-year"
+        >
+
+          <option value="">
+            Kies je studiejaar
+          </option>
+
+          <option value="Bachelor 1">
+            Bachelor 1
+          </option>
+
+          <option value="Bachelor 2">
+            Bachelor 2
+          </option>
+
+          <option value="Bachelor 3">
+            Bachelor 3
+          </option>
+
+          <option value="Master 1">
+            Master 1
+          </option>
+
+          <option value="Master 2">
+            Master 2
+          </option>
+
+        </select>
+
+
+        <button
+          class="auth-submit"
+          type="submit"
+        >
+          Account maken →
+        </button>
+
+      </form>
+
+
+      <!-- AUTH MESSAGE -->
+
+      <p
+        id="auth-message"
+        class="auth-message"
+      ></p>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- =========================
+       MAIN APP
+  ========================== -->
+
+  <div class="app hidden" id="app">
+
+
+    <!-- HEADER -->
+
+    <header class="topbar">
+
+      <div class="app-info">
+
+        <div class="logo">
+          💊
+        </div>
+
+        <div class="user-info">
+
+          <h1>
+            DailyFarma
+          </h1>
+
+          <p id="welcome-text">
+            Leer farmacie, elke dag.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="header-actions">
+
+        <button
+          class="icon-btn"
+          id="theme-btn"
+          type="button"
+        >
+          🌙
+        </button>
+
+        <button
+          class="logout-btn"
+          id="logout-btn"
+          type="button"
+        >
+          Uitloggen
+        </button>
+
+      </div>
+
+    </header>
+
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main-content">
+
+
+      <!-- VANDAAG -->
+
+      <section
+        class="page active-page"
+        id="today-page"
+      >
+
+        <section class="daily-question-card">
+
+          <div>
+
+            <h2>
+              Vraag van Vandaag
+            </h2>
+
+            <p>
+              Beantwoord de vraag om je streak voort te zetten 🔥
+            </p>
+
+          </div>
+
+          <span
+            class="date-pill"
+            id="date-pill"
+          >
+            Vandaag
+          </span>
+
+        </section>
+
+
+        <section class="quiz-card">
+
+          <div class="tags">
+
+            <span
+              class="tag category-tag"
+              id="category"
+            >
+              Wetgeving
+            </span>
+
+            <span
+              class="tag difficulty-tag"
+              id="difficulty"
+            >
+              Gemiddeld
+            </span>
+
+            <span class="tag type-tag">
+              Meerkeuzevraag
+            </span>
+
+          </div>
+
+
+          <div class="actions">
+
+            <button
+              class="soft-btn"
+              id="calculator-btn"
+              type="button"
+            >
+              🧮 Rekenmachine
+            </button>
+
+
+            <button
+              class="soft-btn hint-btn"
+              id="hint-btn"
+              type="button"
+            >
+              💡 Toon hint
+            </button>
+
+          </div>
+
+
+          <h2
+            class="question"
+            id="question"
+          >
+            Vraag wordt geladen...
+          </h2>
+
+
+          <div
+            class="options"
+            id="options"
+          ></div>
+
+
+          <div
+            class="feedback hidden"
+            id="feedback"
+          >
+
+            <div
+              class="feedback-title"
+              id="feedback-title"
+            ></div>
+
+            <p id="feedback-text"></p>
+
+          </div>
+
+
+          <button
+            class="submit-btn"
+            id="submit-btn"
+            type="button"
+          >
+            Indienen →
+          </button>
+
+
+          <button
+            class="next-btn hidden"
+            id="next-btn"
+            type="button"
+          >
+            Volgende vraag →
+          </button>
+
+        </section>
+
+
+        <section class="score-info">
+
+          <span>
+            Score:
+            <strong id="score">0</strong>
+          </span>
+
+          <span>
+            Vraag:
+            <strong id="progress">1</strong>
+          </span>
+
+        </section>
+
+      </section>
+
+
+
+      <!-- KALENDER -->
+
+      <section
+        class="page"
+        id="calendar-page"
+      >
+
+        <div class="page-heading">
+
+          <h2>
+            📅 Kalender
+          </h2>
+
+          <p>
+            Bekijk je dagelijkse voortgang.
+          </p>
+
+        </div>
+
+
+        <section class="calendar-card">
+          <div class="calendar-header">
+            <button class="calendar-arrow" id="previous-month" type="button">←</button>
+
+            <h3 id="calendar-month">Kalender</h3>
+            
+            <button class="calendar-arrow" id="next-month" type="button">→</button>
+          </div>
+
+          <div class="weekdays">
+            <span>Ma</span>
+            <span>Di</span>
+            <span>Wo</span>
+            <span>Do</span>
+            <span>Vr</span>
+            <span>Za</span>
+            <span>Zo</span>
+          </div>
+
+          
+          <div class="calendar-grid" id="calendar-grid" ></div>
+        </section>
+
+
+        <section class="streak-card">
+
+          <div class="streak-icon">
+            🔥
+          </div>
+
+          <div>
+
+            <h3>
+              Huidige streak
+            </h3>
+
+            <p>
+              Blijf elke dag leren!
+            </p>
+
+          </div>
+
+          <strong
+            id="streak-number"
+          >
+            0
+          </strong>
+
+        </section>
+
+      </section>
+
+
+
+      <!-- CATEGORIEËN -->
+
+      <section
+        class="page"
+        id="categories-page"
+      >
+
+        <div class="page-heading">
+
+          <h2>
+            🏷️ Categorieën
+          </h2>
+
+          <p>
+            Kies een onderwerp om te oefenen.
+          </p>
+
+        </div>
+
+
+        <div class="category-grid">
+
+          <button class="category-card" type="button">
+            <span class="category-icon">⚖️</span>
+            <h3>Wetgeving</h3>
+            <p>Oefen vragen</p>
+          </button>
+
+          <button class="category-card" type="button">
+            <span class="category-icon">💊</span>
+            <h3>Farmacologie</h3>
+            <p>Oefen vragen</p>
+          </button>
+
+          <button class="category-card" type="button">
+            <span class="category-icon">📈</span>
+            <h3>PK/PD</h3>
+            <p>Oefen vragen</p>
+          </button>
+
+          <button class="category-card" type="button">
+            <span class="category-icon">🏥</span>
+            <h3>Klinische Farmacie</h3>
+            <p>Oefen vragen</p>
+          </button>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- CASUS -->
+
+      <section
+        class="page"
+        id="case-page"
+      >
+
+        <div class="page-heading">
+
+          <h2>
+            📄 Casus
+          </h2>
+
+          <p>
+            Train je klinisch redeneren.
+          </p>
+
+        </div>
+
+
+        <section class="case-card">
+
+          <div class="case-label">
+            Casus van de week
+          </div>
+
+          <h2>
+            De patiënt met verminderde nierfunctie
+          </h2>
+
+          <p>
+            Een patiënt van 72 jaar gebruikt meerdere
+            geneesmiddelen en heeft een verminderde nierfunctie.
+          </p>
+
+          <div class="case-info">
+
+            <span>
+              ⏱️ 10 min
+            </span>
+
+            <span>
+              📊 Gemiddeld
+            </span>
+
+          </div>
+
+
+          <button
+            class="case-start-btn"
+            type="button"
+          >
+            Start casus →
+          </button>
+
+        </section>
+
+      </section>
+
+
+
+      <!-- PROFIEL -->
+
+      <section
+        class="page"
+        id="profile-page"
+      >
+
+        <section class="profile-header">
+
+          <div class="profile-avatar">
+            👨‍🎓
+          </div>
+
+          <div>
+
+            <h2
+              id="profile-name"
+            >
+              Farmacie Student
+            </h2>
+
+            <p
+              id="profile-study-year"
+            >
+              Master Farmacie
+            </p>
+
+          </div>
+
+        </section>
+
+
+        <div class="profile-stats">
+
+          <div class="stat-card">
+
+            <span>🔥</span>
+
+            <strong
+              id="profile-streak"
+            >
+              0
+            </strong>
+
+            <p>
+              Dagen streak
+            </p>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <span>🎯</span>
+
+            <strong
+              id="profile-questions"
+            >
+              0
+            </strong>
+
+            <p>
+              Vragen
+            </p>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <span>📈</span>
+
+            <strong
+              id="profile-percentage"
+            >
+              0%
+            </strong>
+
+            <p>
+              Correct
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <section class="progress-card">
+
+          <h3>
+            Jouw voortgang
+          </h3>
+
+          <p>
+            Je persoonlijke voortgang wordt opgebouwd
+            terwijl je vragen beantwoordt.
+          </p>
+
+        </section>
+
+      </section>
+
+
+      <footer>
+        Made for Farmacie Studenten 💊
+      </footer>
+
+    </main>
+
+
+
+    <!-- BOTTOM NAV -->
+
+    <nav class="bottom-nav">
+
+      <button
+        class="nav-item active"
+        data-page="today-page"
+        type="button"
+      >
+        <span class="nav-icon">⌂</span>
+        Vandaag
+      </button>
+
+
+      <button
+        class="nav-item"
+        data-page="calendar-page"
+        type="button"
+      >
+        <span class="nav-icon">◫</span>
+        Kalender
+      </button>
+
+
+      <button
+        class="nav-item"
+        data-page="categories-page"
+        type="button"
+      >
+        <span class="nav-icon">▣</span>
+        Categorieën
+      </button>
+
+
+      <button
+        class="nav-item"
+        data-page="case-page"
+        type="button"
+      >
+        <span class="nav-icon">▤</span>
+        Casus
+      </button>
+
+
+      <button
+        class="nav-item"
+        data-page="profile-page"
+        type="button"
+      >
+        <span class="nav-icon">◉</span>
+        Profiel
+      </button>
+
+    </nav>
+
+  </div>
+
+
+
+  <!-- HINT MODAL -->
+
+  <div
+    class="modal hidden"
+    id="hint-modal"
+  >
+
+    <div class="modal-card">
+
+      <button
+        class="modal-close"
+        id="close-hint"
+        type="button"
+      >
+        ×
+      </button>
+
+      <h2>
+        💡 Hint
+      </h2>
+
+      <p id="hint-text"></p>
+
+      <button
+        class="modal-action-btn"
+        id="hint-close-btn"
+        type="button"
+      >
+        Begrepen!
+      </button>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- CALCULATOR MODAL -->
+
+  <div
+    class="modal hidden"
+    id="calculator-modal"
+  >
+
+    <div class="calculator-card">
+
+      <div class="calculator-header">
+
+        <h2>
+          🧮 Rekenmachine
+        </h2>
+
+        <button
+          class="modal-close"
+          id="close-calculator"
+          type="button"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <input
+        type="text"
+        id="calculator-display"
+        class="calculator-display"
+        value="0"
+        readonly
+      >
+
+
+      <div class="calculator-grid">
+
+        <button type="button" data-value="7">7</button>
+        <button type="button" data-value="8">8</button>
+        <button type="button" data-value="9">9</button>
+        <button type="button" data-value="/">÷</button>
+
+        <button type="button" data-value="4">4</button>
+        <button type="button" data-value="5">5</button>
+        <button type="button" data-value="6">6</button>
+        <button type="button" data-value="*">×</button>
+
+        <button type="button" data-value="1">1</button>
+        <button type="button" data-value="2">2</button>
+        <button type="button" data-value="3">3</button>
+        <button type="button" data-value="-">−</button>
+
+        <button type="button" data-value="0">0</button>
+        <button type="button" data-value=".">.</button>
+
+        <button
+          id="calculator-equals"
+          class="calculator-equals"
+          type="button"
+        >
+          =
+        </button>
+
+        <button type="button" data-value="+">+</button>
+
+      </div>
+
+
+      <button
+        class="calculator-clear"
+        id="calculator-clear"
+        type="button"
+      >
+        Wissen
+      </button>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- SUPABASE CDN -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- APP -->
+
+  <script src="script.js"></script>
+
+</body>
+</html>
