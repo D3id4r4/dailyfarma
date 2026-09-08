@@ -1611,94 +1611,6 @@ async function loadUserStatistics() {
 
 }
 
-/* =========================================
-   PROFIEL RESETTEN
-========================================= */
-
-async function resetProfile() {
-
-  if (!currentUser) {
-    alert("Je bent niet ingelogd.");
-    return;
-  }
-
-  const firstConfirmation = confirm(
-    "Weet je zeker dat je je profiel wilt resetten?\n\n" +
-    "Je quizresultaten, streak en voortgang worden verwijderd."
-  );
-
-  if (!firstConfirmation) {
-    return;
-  }
-
-  const secondConfirmation = confirm(
-    "LET OP!\n\n" +
-    "Dit verwijdert al je opgeslagen quizvoortgang en je streak.\n\n" +
-    "Wil je echt helemaal opnieuw beginnen?"
-  );
-
-  if (!secondConfirmation) {
-    return;
-  }
-
-  try {
-
-    // Quizresultaten verwijderen
-    const {
-      error: resultsError
-    } = await supabaseClient
-      .from("quiz_results")
-      .delete()
-      .eq("user_id", currentUser.id);
-
-    if (resultsError) {
-      throw resultsError;
-    }
-
-    // Voortgang verwijderen
-    const {
-      error: progressError
-    } = await supabaseClient
-      .from("user_progress")
-      .delete()
-      .eq("user_id", currentUser.id);
-
-    if (progressError) {
-      throw progressError;
-    }
-
-    alert(
-      "Je profiel is gereset. Je kunt opnieuw beginnen!"
-    );
-
-    // Statistieken opnieuw laden
-    await loadUserStatistics();
-
-    // Kalender opnieuw laden
-    await loadCalendar();
-
-  } catch (error) {
-
-    console.error(
-      "Fout bij resetten profiel:",
-      error
-    );
-
-    alert(
-      "Er is iets misgegaan bij het resetten van je profiel."
-    );
-  }
-}
-
-const resetProfileButton =
-  document.getElementById("reset-profile-button");
-
-if (resetProfileButton) {
-  resetProfileButton.addEventListener(
-    "click",
-    resetProfile
-  );
-}
 
 /* =========================================
    SHOW APP
@@ -3136,3 +3048,99 @@ supabaseClient
 updateDate();
 
 checkSession();
+
+
+/* =========================================
+   PROFIEL RESET KNOP
+========================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const resetProfileButton =
+    document.getElementById("reset-profile-button");
+
+  if (!resetProfileButton) {
+    console.log("Reset-knop niet gevonden.");
+    return;
+  }
+
+  resetProfileButton.addEventListener(
+    "click",
+    async () => {
+
+      if (!currentUser) {
+        alert("Je bent niet ingelogd.");
+        return;
+      }
+
+      const firstConfirmation = confirm(
+        "Weet je zeker dat je je profiel wilt resetten?\n\n" +
+        "Je quizresultaten, streak en voortgang worden verwijderd."
+      );
+
+      if (!firstConfirmation) {
+        return;
+      }
+
+      const secondConfirmation = confirm(
+        "LET OP!\n\n" +
+        "Dit verwijdert al je opgeslagen quizvoortgang en je streak.\n\n" +
+        "Weet je zeker dat je opnieuw wilt beginnen?"
+      );
+
+      if (!secondConfirmation) {
+        return;
+      }
+
+      try {
+
+        console.log("Profiel wordt gereset...");
+
+        const {
+          error: resultsError
+        } = await supabaseClient
+          .from("quiz_results")
+          .delete()
+          .eq("user_id", currentUser.id);
+
+        if (resultsError) {
+          throw resultsError;
+        }
+
+        const {
+          error: progressError
+        } = await supabaseClient
+          .from("user_progress")
+          .delete()
+          .eq("user_id", currentUser.id);
+
+        if (progressError) {
+          throw progressError;
+        }
+
+        alert(
+          "Je profiel is succesvol gereset!"
+        );
+
+        await loadUserStatistics();
+        await loadCalendar();
+
+      } catch (error) {
+
+        console.error(
+          "Fout bij resetten profiel:",
+          error
+        );
+
+        alert(
+          "Het profiel kon niet worden gereset."
+        );
+      }
+    }
+  );
+
+  console.log(
+    "Reset-knop succesvol gekoppeld."
+  );
+
+});
