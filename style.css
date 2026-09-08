@@ -1126,3 +1126,234 @@ footer {
   }
 
 }
+
+/* =========================
+   DARK MODE
+========================= */
+
+body.dark-mode {
+  background: #111827;
+  color: #f3f4f6;
+}
+
+/* HEADER */
+body.dark-mode .topbar {
+  background: #1f2937;
+  border-bottom-color: #374151;
+}
+
+body.dark-mode .user-info p {
+  color: #9ca3af;
+}
+
+body.dark-mode .icon-btn {
+  background: #374151;
+  color: #f9fafb;
+}
+
+/* KAARTEN */
+body.dark-mode .quiz-card,
+body.dark-mode .calendar-card,
+body.dark-mode .case-card,
+body.dark-mode .case-tips,
+body.dark-mode .progress-card,
+body.dark-mode .score-info,
+body.dark-mode .category-card,
+body.dark-mode .stat-card,
+body.dark-mode .profile-settings {
+  background: #1f2937;
+  color: #f3f4f6;
+}
+
+/* TEKST */
+body.dark-mode .page-heading p,
+body.dark-mode .case-card p,
+body.dark-mode .case-info,
+body.dark-mode .profile-header p,
+body.dark-mode .category-card p,
+body.dark-mode .case-tips ul,
+body.dark-mode .feedback p,
+body.dark-mode .streak-card p {
+  color: #9ca3af;
+}
+
+/* ANTWOORDOPTIES */
+body.dark-mode .option {
+  background: #273449;
+  border-color: #4b5563;
+  color: #f3f4f6;
+}
+
+body.dark-mode .option-letter {
+  background: #374151;
+  color: #f3f4f6;
+}
+
+body.dark-mode .option.selected {
+  background: #263b69;
+  border-color: #6688f1;
+}
+
+/* KALENDER */
+body.dark-mode .calendar-arrow {
+  background: #374151;
+  color: #f3f4f6;
+}
+
+body.dark-mode .calendar-day {
+  background: #273449;
+  color: #f3f4f6;
+}
+
+body.dark-mode .calendar-day.completed {
+  background: #24533e;
+  color: #8ee0b5;
+}
+
+body.dark-mode .weekdays span {
+  color: #9ca3af;
+}
+
+/* STREAK */
+body.dark-mode .streak-card {
+  background: #3b3020;
+}
+
+body.dark-mode .streak-card strong {
+  color: #f0b83d;
+}
+
+/* SOFT BUTTONS */
+body.dark-mode .soft-btn {
+  background: #263b69;
+  color: #b9caff;
+}
+
+body.dark-mode .hint-btn {
+  background: #40351f;
+  color: #f2c866;
+}
+
+/* FEEDBACK */
+body.dark-mode .feedback {
+  background: #273449;
+}
+
+body.dark-mode .feedback.correct-feedback {
+  background: #173b2b;
+  border-color: #286b4b;
+}
+
+body.dark-mode .feedback.incorrect-feedback {
+  background: #3d2424;
+  border-color: #704040;
+}
+
+/* PROFIEL */
+body.dark-mode .progress-bar {
+  background: #374151;
+}
+
+/* BOTTOM NAV */
+body.dark-mode .bottom-nav {
+  background: #1f2937;
+  border-top-color: #374151;
+  box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.25);
+}
+
+body.dark-mode .nav-item {
+  color: #9ca3af;
+}
+
+body.dark-mode .nav-item.active {
+  color: #7f9df5;
+}
+
+/* MODALS */
+body.dark-mode .modal-card,
+body.dark-mode .calculator-card {
+  background: #1f2937;
+  color: #f3f4f6;
+}
+
+body.dark-mode .modal-card p {
+  color: #9ca3af;
+}
+
+body.dark-mode .modal-close {
+  background: #374151;
+  color: #f3f4f6;
+}
+
+/* REKENMACHINE */
+body.dark-mode .calculator-display {
+  background: #111827;
+  color: #f3f4f6;
+}
+
+body.dark-mode .calculator-grid button {
+  background: #374151;
+  color: #f3f4f6;
+}
+
+body.dark-mode .calculator-equals {
+  background: #24533e !important;
+  color: #8ee0b5;
+}
+
+body.dark-mode .calculator-clear {
+  background: #3d2424;
+  color: #f28b8b;
+}
+
+/* LOGIN / REGISTRATIE */
+body.dark-mode .auth-screen {
+  background: linear-gradient(
+    135deg,
+    #111827,
+    #17251f
+  );
+}
+
+body.dark-mode .auth-card {
+  background: #1f2937;
+  color: #f3f4f6;
+}
+
+body.dark-mode .auth-subtitle,
+body.dark-mode .auth-message {
+  color: #9ca3af;
+}
+
+body.dark-mode .auth-tabs {
+  background: #374151;
+}
+
+body.dark-mode .auth-tab {
+  color: #9ca3af;
+}
+
+body.dark-mode .auth-tab.active {
+  background: #1f2937;
+  color: #8da8ff;
+}
+
+body.dark-mode .auth-form label {
+  color: #d1d5db;
+}
+
+body.dark-mode .auth-form input,
+body.dark-mode .auth-form select {
+  background: #111827;
+  color: #f3f4f6;
+  border-color: #4b5563;
+}
+
+body.dark-mode .auth-form input::placeholder {
+  color: #6b7280;
+}
+
+/* FOOTER */
+body.dark-mode footer {
+  color: #6b7280;
+}

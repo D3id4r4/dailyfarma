@@ -3144,3 +3144,45 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 
 });
+
+
+/* =========================
+   DARK MODE
+========================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+  const themeButton = document.getElementById("theme-btn");
+
+  if (!themeButton) {
+    console.log("Theme-knop niet gevonden.");
+    return;
+  }
+
+  // Controleer of de gebruiker eerder een thema heeft gekozen
+  const savedTheme = localStorage.getItem("dailyfarma-theme");
+
+  if (savedTheme === "dark") {
+    document.body.classList.add("dark-mode");
+    themeButton.textContent = "☀️";
+  } else {
+    themeButton.textContent = "🌙";
+  }
+
+  // Thema wisselen
+  themeButton.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+
+    const darkModeActive =
+      document.body.classList.contains("dark-mode");
+
+    if (darkModeActive) {
+      themeButton.textContent = "☀️";
+      localStorage.setItem("dailyfarma-theme", "dark");
+    } else {
+      themeButton.textContent = "🌙";
+      localStorage.setItem("dailyfarma-theme", "light");
+    }
+  });
+
+  console.log("Dark mode succesvol gekoppeld.");
+});
