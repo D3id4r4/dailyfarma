@@ -157,8 +157,6 @@ button {
 
 .quiz-card,
 .calendar-card,
-.case-card,
-.case-tips,
 .progress-card {
   background: white;
   border-radius: 20px;
@@ -495,59 +493,6 @@ button {
 .category-card p {
   font-size: 12px;
   color: #8a919c;
-}
-
-
-/* =========================
-   CASE
-========================= */
-
-.case-card {
-  padding: 24px;
-}
-
-.case-label {
-  display: inline-block;
-  margin-bottom: 14px;
-  padding: 7px 10px;
-  border-radius: 10px;
-  background: #e8edff;
-  color: #4d6fd1;
-  font-size: 12px;
-  font-weight: bold;
-}
-
-.case-card h2 {
-  margin-bottom: 12px;
-  font-size: 22px;
-}
-
-.case-card p {
-  line-height: 1.6;
-  color: #6b7280;
-}
-
-.case-info {
-  display: flex;
-  gap: 16px;
-  margin-top: 20px;
-  color: #6b7280;
-  font-size: 13px;
-}
-
-.case-tips {
-  margin-top: 18px;
-  padding: 22px;
-}
-
-.case-tips h3 {
-  margin-bottom: 14px;
-}
-
-.case-tips ul {
-  padding-left: 20px;
-  color: #6b7280;
-  line-height: 2;
 }
 
 
@@ -1154,8 +1099,6 @@ body.dark-mode .icon-btn {
 /* KAARTEN */
 body.dark-mode .quiz-card,
 body.dark-mode .calendar-card,
-body.dark-mode .case-card,
-body.dark-mode .case-tips,
 body.dark-mode .progress-card,
 body.dark-mode .score-info,
 body.dark-mode .category-card,
@@ -1167,11 +1110,8 @@ body.dark-mode .profile-settings {
 
 /* TEKST */
 body.dark-mode .page-heading p,
-body.dark-mode .case-card p,
-body.dark-mode .case-info,
 body.dark-mode .profile-header p,
 body.dark-mode .category-card p,
-body.dark-mode .case-tips ul,
 body.dark-mode .feedback p,
 body.dark-mode .streak-card p {
   color: #9ca3af;
