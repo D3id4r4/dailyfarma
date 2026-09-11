@@ -1896,6 +1896,132 @@ async function saveQuizResult(
 
 }
 
+/* =========================================
+   GELUIDEN
+========================================= */
+
+let audioContext = null;
+
+function getAudioContext() {
+  if (!audioContext) {
+    audioContext =
+      new (
+        window.AudioContext ||
+        window.webkitAudioContext
+      )();
+  }
+
+  return audioContext;
+}
+
+
+function playTone(
+  frequency,
+  duration = 0.08,
+  type = "sine",
+  volume = 0.04
+) {
+
+  const context =
+    getAudioContext();
+
+  const oscillator =
+    context.createOscillator();
+
+  const gain =
+    context.createGain();
+
+  oscillator.type =
+    type;
+
+  oscillator.frequency.value =
+    frequency;
+
+  gain.gain.setValueAtTime(
+    volume,
+    context.currentTime
+  );
+
+  gain.gain.exponentialRampToValueAtTime(
+    0.001,
+    context.currentTime +
+      duration
+  );
+
+  oscillator.connect(gain);
+  gain.connect(context.destination);
+
+  oscillator.start();
+
+  oscillator.stop(
+    context.currentTime +
+      duration
+  );
+}
+
+
+/* Gewone knop */
+
+function playClickSound() {
+
+  playTone(
+    520,
+    0.06,
+    "sine",
+    0.035
+  );
+
+}
+
+
+/* Goed antwoord */
+
+function playCorrectSound() {
+
+  playTone(
+    523.25,
+    0.10,
+    "sine",
+    0.05
+  );
+
+  setTimeout(() => {
+
+    playTone(
+      659.25,
+      0.12,
+      "sine",
+      0.05
+    );
+
+  }, 80);
+
+  setTimeout(() => {
+
+    playTone(
+      783.99,
+      0.18,
+      "sine",
+      0.05
+    );
+
+  }, 160);
+
+}
+
+
+/* Fout antwoord */
+
+function playIncorrectSound() {
+
+  playTone(
+    220,
+    0.15,
+    "sawtooth",
+    0.025
+  );
+
+}
 
 /* =========================================
    SUBMIT DAILY ANSWER
@@ -1979,6 +2105,8 @@ async function submitAnswer() {
     );
 
     launchConfetti();
+    
+    playCorrectSound();
 
   }
 
@@ -1998,6 +2126,8 @@ async function submitAnswer() {
     feedbackElement.classList.add(
       "incorrect-feedback"
     );
+
+      playIncorrectSound();
 
   }
 
@@ -3252,3 +3382,47 @@ document.addEventListener("DOMContentLoaded", () => {
 
   console.log("Dark mode succesvol gekoppeld.");
 });
+
+/* =========================================
+   BUTTON CLICK SOUND
+========================================= */
+
+document.addEventListener(
+  "click",
+  (event) => {
+
+    const button =
+      event.target.closest(
+        "button"
+      );
+
+    if (!button) {
+      return;
+    }
+
+    /*
+      Deze knoppen hebben al
+      hun eigen geluid.
+    */
+    if (
+      button.id === "submit-btn"
+    ) {
+      return;
+    }
+
+    /*
+      Antwoordknoppen hebben hun
+      eigen interactie.
+    */
+    if (
+      button.classList.contains(
+        "option"
+      )
+    ) {
+      return;
+    }
+
+    playClickSound();
+
+  }
+);
