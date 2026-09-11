@@ -591,6 +591,56 @@ button {
   background: linear-gradient(90deg, #5e82e8, #64c89e);
 }
 
+/* =========================
+   PROFIEL RESET
+========================= */
+
+.reset-profile-button {
+  grid-column: 1 / -1;
+
+  width: 100%;
+  margin-top: 4px;
+  padding: 13px 16px;
+
+  border: 1px solid #f1c5c5;
+  border-radius: 14px;
+
+  background: #fff7f7;
+  color: #c24b4b;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
+}
+
+.reset-profile-button::before {
+  content: "↻";
+  margin-right: 7px;
+  font-size: 16px;
+}
+
+.reset-profile-button:hover {
+  background: #fff0f0;
+  border-color: #e46d6d;
+
+  box-shadow:
+    0 5px 15px rgba(196, 75, 75, 0.12);
+
+  transform: translateY(-1px);
+}
+
+.reset-profile-button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
 .profile-settings {
   width: 100%;
   margin-top: 18px;
@@ -1192,6 +1242,20 @@ body.dark-mode .feedback.incorrect-feedback {
 /* PROFIEL */
 body.dark-mode .progress-bar {
   background: #374151;
+}
+
+body.dark-mode .reset-profile-button {
+  background: #3d2424;
+  border-color: #704040;
+  color: #f28b8b;
+}
+
+body.dark-mode .reset-profile-button:hover {
+  background: #4a2929;
+  border-color: #8b4b4b;
+
+  box-shadow:
+    0 5px 15px rgba(242, 139, 139, 0.08);
 }
 
 /* BOTTOM NAV */
