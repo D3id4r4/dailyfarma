@@ -158,9 +158,10 @@ button {
 .quiz-card,
 .calendar-card,
 .progress-card {
-  background: white;
+  background: #ffffff;
+  border: 1px solid #e1e5ec;
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(31, 41, 55, 0.08);
+  box-shadow: 0 6px 20px rgba(31, 41, 55, 0.06);
 }
 
 .quiz-card {
@@ -360,6 +361,7 @@ button {
   justify-content: space-between;
   margin-top: 16px;
   padding: 14px 18px;
+  border: 1px solid #e1e5ec;
   border-radius: 14px;
   background: white;
   font-size: 14px;
@@ -471,9 +473,9 @@ button {
 
 .category-card {
   padding: 20px 14px;
-  border: none;
+  border: 1px solid #e1e5ec;
   border-radius: 18px;
-  background: white;
+  background: #ffffff;
   text-align: left;
   cursor: pointer;
   box-shadow: 0 5px 18px rgba(31, 41, 55, 0.05);
@@ -536,8 +538,9 @@ button {
 
 .stat-card {
   padding: 16px 8px;
+  border: 1px solid #e1e5ec;
   border-radius: 16px;
-  background: white;
+  background: #ffffff;
   text-align: center;
   box-shadow: 0 5px 18px rgba(31, 41, 55, 0.05);
 }
