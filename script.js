@@ -1978,6 +1978,8 @@ async function submitAnswer() {
       "correct-feedback"
     );
 
+    launchConfetti();
+
   }
 
   else {
@@ -2096,6 +2098,70 @@ async function submitAnswer() {
 
 }
 
+/* =========================================
+   CONFETTI
+========================================= */
+
+function launchConfetti() {
+
+  const colors = [
+    "#4f7cff",
+    "#22c55e",
+    "#facc15",
+    "#f97316",
+    "#ec4899",
+    "#a855f7"
+  ];
+
+  for (
+    let i = 0;
+    i < 80;
+    i++
+  ) {
+
+    const confetti =
+      document.createElement(
+        "div"
+      );
+
+    confetti.classList.add(
+      "confetti-piece"
+    );
+
+    confetti.style.left =
+      Math.random() * 100 + "vw";
+
+    confetti.style.backgroundColor =
+      colors[
+        Math.floor(
+          Math.random() *
+          colors.length
+        )
+      ];
+
+    confetti.style.animationDuration =
+      (2 + Math.random() * 2) + "s";
+
+    confetti.style.animationDelay =
+      (Math.random() * 0.3) + "s";
+
+    confetti.style.transform =
+      `rotate(${Math.random() * 360}deg)`;
+
+    document.body.appendChild(
+      confetti
+    );
+
+    setTimeout(
+      () => {
+        confetti.remove();
+      },
+      4500
+    );
+
+  }
+
+}
 
 /* =========================================
    NEXT QUESTION

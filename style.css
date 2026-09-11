@@ -1297,3 +1297,39 @@ body.dark-mode .auth-form input::placeholder {
 body.dark-mode footer {
   color: #6b7280;
 }
+
+/* =========================================
+   CONFETTI
+========================================= */
+
+.confetti-piece {
+  position: fixed;
+  top: -20px;
+  width: 10px;
+  height: 16px;
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 9999;
+
+  animation-name: confetti-fall;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes confetti-fall {
+
+  0% {
+    transform:
+      translateY(0)
+      rotate(0deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform:
+      translateY(110vh)
+      rotate(720deg);
+    opacity: 0;
+  }
+
+}
