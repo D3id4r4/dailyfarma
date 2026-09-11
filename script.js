@@ -2409,11 +2409,15 @@ function restartQuiz() {
 
 function openHint() {
 
-  hintText.textContent =
-    questions[
-      currentQuestionIndex
-    ].hint;
+  if (
+    !currentDailyQuestion
+  ) {
+    return;
+  }
 
+  hintText.textContent =
+    currentDailyQuestion.hint ||
+    "Voor deze vraag is geen hint beschikbaar.";
 
   hintModal.classList.remove(
     "hidden"
