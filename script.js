@@ -855,6 +855,17 @@ let hasAnsweredToday = false;
 
 
 /* =========================================
+   CATEGORY QUIZ
+========================================= */
+
+let categoryMode = false;
+
+let categoryQuestions = [];
+
+let categoryQuestionIndex = 0;
+
+
+/* =========================================
    DOM ELEMENTS
 ========================================= */
 
@@ -2046,9 +2057,14 @@ async function submitAnswer() {
     answered ||
     hasAnsweredToday
   ) {
-
     return;
-
+  }
+  
+  if (
+    !categoryMode &&
+    hasAnsweredToday
+  ) {
+    return;
   }
 
 
@@ -2204,19 +2220,31 @@ async function submitAnswer() {
     Vraag is vandaag klaar
   */
 
-  hasAnsweredToday =
-    true;
-
+  if (categoryMode) {
 
   submitButton.classList.add(
     "hidden"
   );
 
+  nextButton.classList.remove(
+    "hidden"
+  );
+
+  }
+  else {
+
+  hasAnsweredToday =
+    true;
+
+  submitButton.classList.add(
+    "hidden"
+  );
 
   nextButton.classList.add(
     "hidden"
   );
 
+  }
 
   /*
     Statistieken vernieuwen
@@ -2299,6 +2327,29 @@ function launchConfetti() {
 
 function nextQuestion() {
 
+  if (categoryMode) {
+
+    categoryQuestionIndex++;
+
+
+    if (
+      categoryQuestionIndex <
+      categoryQuestions.length
+    ) {
+
+      loadCategoryQuestion();
+
+    }
+    else {
+
+      finishCategoryQuiz();
+
+    }
+
+    return;
+  }
+
+
   currentQuestionIndex++;
 
 
@@ -2310,7 +2361,6 @@ function nextQuestion() {
     loadQuestion();
 
   }
-
   else {
 
     showFinalResult();
@@ -2905,6 +2955,284 @@ if (nextMonthButton) {
 }
 
 /* =========================================
+   CATEGORY QUIZ
+========================================= */
+
+const categoryCards =
+  document.querySelectorAll(
+    ".category-card"
+  );
+
+
+categoryCards.forEach(
+  categoryCard => {
+
+    categoryCard.addEventListener(
+      "click",
+      () => {
+
+        const category =
+          categoryCard.dataset.category;
+
+        startCategoryQuiz(
+          category
+        );
+
+      }
+    );
+
+  }
+);
+
+
+function startCategoryQuiz(
+  category
+) {
+
+  const filteredQuestions =
+    questions.filter(
+      question =>
+        question.category === category
+    );
+
+
+  if (
+    filteredQuestions.length === 0
+  ) {
+
+    alert(
+      `Er zijn nog geen vragen beschikbaar voor ${category}.`
+    );
+
+    return;
+  }
+
+
+  categoryMode = true;
+
+  categoryQuestions =
+    filteredQuestions;
+
+  categoryQuestionIndex = 0;
+
+  score = 0;
+
+  scoreElement.textContent =
+    "0";
+
+
+  /* Ga naar de quiz */
+
+  pages.forEach(
+    page =>
+      page.classList.remove(
+        "active-page"
+      )
+  );
+
+
+  document
+    .getElementById(
+      "today-page"
+    )
+    .classList.add(
+      "active-page"
+    );
+
+
+  navItems.forEach(
+    item =>
+      item.classList.remove(
+        "active"
+      )
+  );
+
+
+  const todayNav =
+    document.querySelector(
+      '[data-page="today-page"]'
+    );
+
+  if (todayNav) {
+    todayNav.classList.add(
+      "active"
+    );
+  }
+
+
+  loadCategoryQuestion();
+
+  window.scrollTo(
+    0,
+    0
+  );
+
+}
+
+
+function loadCategoryQuestion() {
+
+  const currentQuestion =
+    categoryQuestions[
+      categoryQuestionIndex
+    ];
+
+
+  if (!currentQuestion) {
+
+    finishCategoryQuiz();
+
+    return;
+  }
+
+
+  currentDailyQuestion =
+    currentQuestion;
+
+  selectedAnswer = null;
+
+  answered = false;
+
+  hasAnsweredToday = false;
+
+
+  questionElement.textContent =
+    currentQuestion.question;
+
+
+  categoryElement.textContent =
+    currentQuestion.category;
+
+
+  difficultyElement.textContent =
+    currentQuestion.difficulty;
+
+
+  progressElement.textContent =
+    `${categoryQuestionIndex + 1}/${categoryQuestions.length}`;
+
+
+  feedbackElement.classList.add(
+    "hidden"
+  );
+
+  feedbackElement.classList.remove(
+    "correct-feedback",
+    "incorrect-feedback"
+  );
+
+
+  submitButton.classList.remove(
+    "hidden"
+  );
+
+  submitButton.disabled = false;
+
+  submitButton.textContent =
+    "Indienen →";
+
+
+  nextButton.classList.add(
+    "hidden"
+  );
+
+
+  optionsElement.innerHTML =
+    "";
+
+
+  currentQuestion.options.forEach(
+    (
+      option,
+      index
+    ) => {
+
+      const button =
+        document.createElement(
+          "button"
+        );
+
+      button.type =
+        "button";
+
+      button.classList.add(
+        "option"
+      );
+
+      button.innerHTML = `
+        <span class="option-letter">
+          ${String.fromCharCode(
+            65 + index
+          )}
+        </span>
+
+        <span>
+          ${option}
+        </span>
+      `;
+
+
+      button.addEventListener(
+        "click",
+        () => {
+          selectAnswer(
+            index
+          );
+        }
+      );
+
+
+      optionsElement.appendChild(
+        button
+      );
+
+    }
+  );
+
+}
+
+
+function finishCategoryQuiz() {
+
+  questionElement.textContent =
+    "Categorie afgerond! 🎉";
+
+
+  optionsElement.innerHTML = `
+    <div class="final-result">
+
+      <h3>
+        ${categoryQuestions.length}
+        vragen geoefend
+      </h3>
+
+      <p>
+        Je hebt
+        <strong>${score}</strong>
+        van de
+        <strong>${categoryQuestions.length}</strong>
+        vragen correct beantwoord.
+      </p>
+
+    </div>
+  `;
+
+
+  feedbackElement.classList.add(
+    "hidden"
+  );
+
+  submitButton.classList.add(
+    "hidden"
+  );
+
+  nextButton.classList.add(
+    "hidden"
+  );
+
+}
+
+/* =========================================
    NAVIGATION
 ========================================= */
 
@@ -2929,7 +3257,21 @@ navItems.forEach(
 
         const targetPage =
           navItem.dataset.page;
+        
+        if (
+          targetPage === "today-page" &&
+          categoryMode
+        ) {
 
+          categoryMode = false;
+
+          categoryQuestions = [];
+
+          categoryQuestionIndex = 0;
+
+          loadDailyQuestion();
+
+        }
 
         pages.forEach(
           page =>
