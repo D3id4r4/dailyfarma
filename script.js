@@ -988,6 +988,12 @@ const profileStudyYear =
     "profile-study-year"
   );
 
+const profileStudyYearSelect =
+  document.getElementById("profile-study-year-select");
+
+const saveStudyYearButton =
+  document.getElementById("save-study-year-button");
+
 const profileQuestions =
   document.getElementById(
     "profile-questions"
@@ -1486,6 +1492,10 @@ async function loadUserProfile() {
     profile.study_year ||
     "Farmacie Student";
 
+  if (profileStudyYearSelect) {
+    profileStudyYearSelect.value =
+      profile.study_year || "";
+  }
 
   /*
     STUDY YEAR OPSLAAN
@@ -1523,6 +1533,56 @@ async function loadUserProfile() {
 
 }
 
+async function updateStudyYear() {
+  if (!currentUser) {
+    alert("Je bent niet ingelogd.");
+    return;
+  }
+
+  const studyYear =
+    profileStudyYearSelect.value;
+
+  if (!studyYear) {
+    alert("Kies eerst je studiejaar.");
+    return;
+  }
+
+  saveStudyYearButton.disabled = true;
+  saveStudyYearButton.textContent =
+    "Opslaan...";
+
+  const { error } = await supabaseClient
+    .from("profiles")
+    .update({
+      study_year: studyYear
+    })
+    .eq("id", currentUser.id);
+
+  if (error) {
+    console.error(
+      "Fout bij updaten studiejaar:",
+      error
+    );
+
+    alert(
+      "Je studiejaar kon niet worden opgeslagen."
+    );
+  } else {
+    profileStudyYear.textContent =
+      studyYear;
+
+    profileStudyYearSelect.value =
+      studyYear;
+
+    alert(
+      "Je studiejaar is opgeslagen!"
+    );
+  }
+
+  saveStudyYearButton.disabled = false;
+  saveStudyYearButton.textContent =
+    "Studiejaar opslaan";
+}
 
 /* =========================================
    LOAD STATISTICS
@@ -3534,6 +3594,12 @@ logoutButton.addEventListener(
   logoutUser
 );
 
+if (saveStudyYearButton) {
+  saveStudyYearButton.addEventListener(
+    "click",
+    updateStudyYear
+  );
+}
 
 /* =========================================
    QUIZ EVENTS
