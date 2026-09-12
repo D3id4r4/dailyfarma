@@ -317,6 +317,49 @@ button {
   background: linear-gradient(135deg, #4d74df, #45b783);
 }
 
+/* Studiejaar opslaan button */
+#save-study-year-button {
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px 18px;
+
+  border: none;
+  border-radius: 12px;
+
+  background: #111827;
+  color: white;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+
+/* Hover */
+#save-study-year-button:hover {
+  background: #1f2937;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* Ingedrukt */
+#save-study-year-button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* Tijdens opslaan */
+#save-study-year-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
 
 /* =========================
    FEEDBACK
@@ -1363,6 +1406,15 @@ body.dark-mode .auth-form input::placeholder {
 /* FOOTER */
 body.dark-mode footer {
   color: #6b7280;
+}
+
+body.dark #save-study-year-button {
+  background: #ffffff;
+  color: #111827;
+}
+
+body.dark #save-study-year-button:hover {
+  background: #e5e7eb;
 }
 
 /* =========================================
