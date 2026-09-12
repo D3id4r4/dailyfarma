@@ -1886,7 +1886,9 @@ async function saveQuizResult(
           isCorrect,
 
         activity_date:
-          today
+          categoryMode
+          ? null
+          : today
 
       });
 
