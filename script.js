@@ -3021,7 +3021,62 @@ function startCategoryQuiz(
     "0";
 
 
-  /* Ga naar de quiz */
+  /* =========================
+     QUIZ NAAR CATEGORIEËN
+  ========================= */
+
+  const categoryGrid =
+    document.getElementById(
+      "category-grid"
+    );
+
+  const categoryQuizArea =
+    document.getElementById(
+      "category-quiz-area"
+    );
+
+  const quizCard =
+    document.getElementById(
+      "quiz-card"
+    );
+
+  const scoreInfo =
+    document.getElementById(
+      "score-info"
+    );
+
+
+  if (
+    categoryGrid
+  ) {
+
+    categoryGrid.classList.add(
+      "hidden"
+    );
+
+  }
+
+
+  if (
+    categoryQuizArea &&
+    quizCard &&
+    scoreInfo
+  ) {
+
+    categoryQuizArea.appendChild(
+      quizCard
+    );
+
+    categoryQuizArea.appendChild(
+      scoreInfo
+    );
+
+  }
+
+
+  /* =========================
+     CATEGORIEËN PAGINA ACTIEF
+  ========================= */
 
   pages.forEach(
     page =>
@@ -3033,7 +3088,7 @@ function startCategoryQuiz(
 
   document
     .getElementById(
-      "today-page"
+      "categories-page"
     )
     .classList.add(
       "active-page"
@@ -3048,15 +3103,18 @@ function startCategoryQuiz(
   );
 
 
-  const todayNav =
+  const categoriesNav =
     document.querySelector(
-      '[data-page="today-page"]'
+      '[data-page="categories-page"]'
     );
 
-  if (todayNav) {
-    todayNav.classList.add(
+
+  if (categoriesNav) {
+
+    categoriesNav.classList.add(
       "active"
     );
+
   }
 
 
@@ -3258,7 +3316,7 @@ navItems.forEach(
         const targetPage =
           navItem.dataset.page;
         
-        if (
+          if (
           targetPage === "today-page" &&
           categoryMode
         ) {
@@ -3269,9 +3327,59 @@ navItems.forEach(
 
           categoryQuestionIndex = 0;
 
-          loadDailyQuestion();
 
-        }
+          const todayQuizArea =
+            document.getElementById(
+              "today-quiz-area"
+            );
+
+          const categoryGrid =
+            document.getElementById(
+              "category-grid"
+            );
+
+          const quizCard =
+            document.getElementById(
+              "quiz-card"
+            );
+
+          const scoreInfo =
+            document.getElementById(
+              "score-info"
+            );
+
+
+          if (
+            todayQuizArea &&
+            quizCard &&
+            scoreInfo
+          ) {
+
+            todayQuizArea.appendChild(
+              quizCard
+            );
+
+            todayQuizArea.appendChild(
+              scoreInfo
+            );
+
+          }
+
+
+            if (
+              categoryGrid
+            ) {
+
+              categoryGrid.classList.remove(
+                "hidden"
+              );
+
+            }
+
+
+            loadDailyQuestion();
+
+          }
 
         pages.forEach(
           page =>

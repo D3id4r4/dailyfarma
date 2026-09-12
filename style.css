@@ -1400,3 +1400,19 @@ body.dark-mode footer {
   }
 
 }
+
+/* =========================================
+   CATEGORY QUIZ
+========================================= */
+
+.category-quiz-area {
+  width: 100%;
+}
+
+.category-quiz-area .quiz-card {
+  margin-top: 18px;
+}
+
+.category-quiz-area .score-info {
+  margin-bottom: 20px;
+}
