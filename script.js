@@ -1497,38 +1497,6 @@ async function loadUserProfile() {
       profile.study_year || "";
   }
 
-  /*
-    STUDY YEAR OPSLAAN
-
-    De trigger heeft nu alleen
-    username opgeslagen.
-
-    Daarom werken we het profiel
-    hier bij wanneer nodig.
-  */
-
-  if (
-    currentUser.user_metadata
-      ?.study_year
-  ) {
-
-    await supabaseClient
-      .from("profiles")
-      .update({
-
-        study_year:
-          currentUser.user_metadata
-            .study_year
-
-      })
-      .eq(
-        "id",
-        currentUser.id
-      );
-
-  }
-
-
   await loadUserStatistics();
 
 }
