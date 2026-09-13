@@ -317,6 +317,69 @@ button {
   background: linear-gradient(135deg, #4d74df, #45b783);
 }
 
+/* =========================
+   STUDIEJAAR AANPASSEN
+========================= */
+
+.profile-study-edit {
+  margin-top: 14px;
+  width: 100%;
+}
+
+.profile-study-edit label {
+  display: block;
+  margin-bottom: 8px;
+
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+#profile-study-year-select {
+  width: 100%;
+  padding: 12px 14px;
+
+  border: 1px solid #e1e5ec;
+  border-radius: 12px;
+
+  background: #f8fafc;
+  color: #1f2937;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+#profile-study-year-select:hover {
+  border-color: #c7d2e3;
+  background: #ffffff;
+}
+
+#profile-study-year-select:focus {
+  border-color: #6688f1;
+  background: #ffffff;
+
+  box-shadow:
+    0 0 0 3px rgba(102, 136, 241, 0.12);
+}
+
+/* Opties in de keuzelijst */
+
+#profile-study-year-select option {
+  padding: 10px;
+  background: #ffffff;
+  color: #1f2937;
+}
+
 /* Studiejaar opslaan button */
 #save-study-year-button {
   width: 100%;
@@ -1406,6 +1469,27 @@ body.dark-mode .auth-form input::placeholder {
 /* FOOTER */
 body.dark-mode footer {
   color: #6b7280;
+}
+
+body.dark .profile-study-edit label {
+  color: #9ca3af;
+}
+
+body.dark #profile-study-year-select {
+  background: #1f2937;
+  border-color: #374151;
+  color: #f9fafb;
+}
+
+body.dark #profile-study-year-select:hover,
+body.dark #profile-study-year-select:focus {
+  background: #111827;
+  border-color: #6688f1;
+}
+
+body.dark #profile-study-year-select option {
+  background: #1f2937;
+  color: #f9fafb;
 }
 
 body.dark #save-study-year-button {
