@@ -1552,3 +1552,260 @@ body.dark #save-study-year-button:hover {
 .category-quiz-area .score-info {
   margin-bottom: 20px;
 }
+
+/* =========================================
+   VERBETERDE LIGHT MODE
+   =========================
+   Alleen light mode.
+   Dark mode blijft onaangeraakt.
+========================================= */
+
+body {
+  background: #eef1f5;
+  color: #1f2937;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.topbar {
+  background: #f8f9fb;
+  border-bottom: 1px solid #dfe3e9;
+}
+
+.user-info p {
+  color: #596273;
+}
+
+.icon-btn {
+  background: #e7ebf0;
+  color: #374151;
+}
+
+
+/* =========================
+   PAGINA
+========================= */
+
+.page-heading p {
+  color: #596273;
+}
+
+
+/* =========================
+   KAARTEN
+========================= */
+
+.quiz-card,
+.calendar-card,
+.progress-card {
+  background: #f8f9fb;
+  border-color: #dce1e7;
+  box-shadow: 0 6px 20px rgba(31, 41, 55, 0.07);
+}
+
+
+/* =========================
+   QUIZ
+========================= */
+
+.question {
+  color: #18212f;
+}
+
+.option {
+  background: #f1f3f6;
+  border-color: #d7dce3;
+  color: #1f2937;
+}
+
+.option:hover {
+  background: #e9edf2;
+  border-color: #c5ccd6;
+}
+
+.option.selected {
+  background: #e8edff;
+  border-color: #587ee8;
+}
+
+
+/* =========================
+   TAGS
+========================= */
+
+.type-tag {
+  background: #e6e9ed;
+  color: #4b5563;
+}
+
+
+/* =========================
+   ACTIEKNOPPEN
+========================= */
+
+.soft-btn {
+  background: #e7ecf8;
+  color: #405b9c;
+}
+
+.soft-btn:hover {
+  background: #dde4f5;
+}
+
+.hint-btn {
+  background: #f8edcf;
+  color: #806000;
+}
+
+
+/* =========================
+   FEEDBACK
+========================= */
+
+.feedback {
+  background: #eceff3;
+}
+
+.feedback p {
+  color: #4b5563;
+}
+
+
+/* =========================
+   SCORE
+========================= */
+
+.score-info {
+  background: #f8f9fb;
+  border-color: #dce1e7;
+}
+
+
+/* =========================
+   KALENDER
+========================= */
+
+.calendar-card {
+  background: #f8f9fb;
+}
+
+.calendar-arrow {
+  background: #e8ecf1;
+  color: #374151;
+}
+
+.weekdays span {
+  color: #667085;
+}
+
+.calendar-day {
+  background: #e9edf2;
+  color: #374151;
+}
+
+.calendar-day:hover {
+  background: #dfe4ea;
+}
+
+.calendar-day.completed {
+  background: #d8f0e3;
+  color: #246b4b;
+}
+
+
+/* =========================
+   STREAK
+========================= */
+
+.streak-card {
+  background: #f7edd9;
+}
+
+.streak-card p {
+  color: #6f5d3b;
+}
+
+
+/* =========================
+   CATEGORIEËN
+========================= */
+
+.category-card {
+  background: #f8f9fb;
+  border-color: #dce1e7;
+  box-shadow: 0 5px 18px rgba(31, 41, 55, 0.06);
+}
+
+.category-card:hover {
+  background: #f1f3f6;
+  border-color: #cbd2dc;
+}
+
+.category-card p {
+  color: #667085;
+}
+
+
+/* =========================
+   PROFIEL
+========================= */
+
+.stat-card {
+  background: #f8f9fb;
+  border-color: #dce1e7;
+  box-shadow: 0 5px 18px rgba(31, 41, 55, 0.05);
+}
+
+.stat-card p {
+  color: #667085;
+}
+
+.profile-header p {
+  color: #667085;
+}
+
+
+/* =========================
+   STUDIEJAAR
+========================= */
+
+.profile-study-edit label {
+  color: #596273;
+}
+
+#profile-study-year-select {
+  background: #f1f3f6;
+  border-color: #d7dce3;
+  color: #1f2937;
+}
+
+#profile-study-year-select:hover {
+  background: #e9edf2;
+  border-color: #c5ccd6;
+}
+
+#profile-study-year-select:focus {
+  background: #f8f9fb;
+  border-color: #6688f1;
+}
+
+#profile-study-year-select option {
+  background: #f8f9fb;
+  color: #1f2937;
+}
+
+
+/* =========================
+   RESET PROFIEL
+========================= */
+
+.reset-profile-button {
+  background: #f9e8e8;
+  color: #a33a3a;
+}
+
+.reset-profile-button:hover {
+  background: #f5dada;
+}
