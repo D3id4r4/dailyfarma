@@ -2224,8 +2224,10 @@ async function submitAnswer() {
   /*
     STREAK BIJWERKEN
   */
-
+  console.log("TEST: submitAnswer bereikt updateStreak");
   await updateStreak();
+  console.log("TEST: updateStreak is uitgevoerd");
+  
   await loadCalendar();
 
 
