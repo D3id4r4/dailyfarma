@@ -621,20 +621,13 @@ async function updateStreak() {
     return;
   }
 
-
-  /*
-    Vandaag als lokale Nederlandse datum.
-    Bijvoorbeeld:
-    2026-09-05
-  */
-
-  const today = getLocalDateString();
+  const today =
+    getLocalDateString();
 
 
-  /*
-    Haal de huidige voortgang van
-    deze gebruiker op.
-  */
+  /* =========================================
+     HUIDIGE VOORTGANG OPHALEN
+  ========================================= */
 
   const {
     data: progress,
@@ -658,7 +651,7 @@ async function updateStreak() {
 
 
   /* =========================================
-     EERSTE ACTIVITEIT OOIT
+     EERSTE DAG
   ========================================= */
 
   if (!progress) {
@@ -678,7 +671,7 @@ async function updateStreak() {
     if (insertError) {
 
       console.error(
-        "Fout bij maken voortgang:",
+        "Fout bij starten streak:",
         insertError
       );
 
@@ -687,7 +680,7 @@ async function updateStreak() {
 
 
     console.log(
-      "Nieuwe streak gestart: 1 dag"
+      "Nieuwe streak gestart: 1"
     );
 
     return;
@@ -703,7 +696,7 @@ async function updateStreak() {
   ) {
 
     console.log(
-      "Vandaag al actief geweest."
+      "Streak vandaag al bijgewerkt."
     );
 
     return;
@@ -711,14 +704,13 @@ async function updateStreak() {
 
 
   /* =========================================
-     DATUMVERSCHIL BEREKENEN
+     DATUMVERSCHIL
   ========================================= */
 
   const lastDateParts =
     progress.last_activity_date
       .split("-")
       .map(Number);
-
 
   const todayParts =
     today
@@ -731,7 +723,6 @@ async function updateStreak() {
     lastDateParts[1] - 1,
     lastDateParts[2]
   );
-
 
   const todayDate = new Date(
     todayParts[0],
@@ -756,30 +747,20 @@ async function updateStreak() {
 
 
   /* =========================================
-     STREAK BEPALEN
+     NIEUWE STREAK
   ========================================= */
 
   let newStreak;
 
 
-  /*
-    Gisteren actief:
-    streak +1
-  */
-
   if (difference === 1) {
 
     newStreak =
-      Number(progress.current_streak || 0) +
-      1;
+      Number(
+        progress.current_streak || 0
+      ) + 1;
 
   }
-
-
-  /*
-    Meer dan één dag overgeslagen:
-    nieuwe streak begint bij 1
-  */
 
   else {
 
@@ -794,13 +775,15 @@ async function updateStreak() {
 
   const newLongestStreak =
     Math.max(
-      Number(progress.longest_streak || 0),
+      Number(
+        progress.longest_streak || 0
+      ),
       newStreak
     );
 
 
   /* =========================================
-     OPSLAAN IN SUPABASE
+     OPSLAAN
   ========================================= */
 
   const {
@@ -821,7 +804,7 @@ async function updateStreak() {
   if (updateError) {
 
     console.error(
-      "Fout bij updaten streak:",
+      "Fout bij opslaan streak:",
       updateError
     );
 
