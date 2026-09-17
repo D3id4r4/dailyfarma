@@ -1033,6 +1033,15 @@ const calculatorDisplay =
     "calculator-display"
   );
 
+const openSettingsButton =
+  document.getElementById("open-settings-button");
+
+const closeSettingsButton =
+  document.getElementById("close-settings-button");
+
+const settingsPanel =
+  document.getElementById("settings-panel");
+
 
 /* =========================================
    AUTH UI
@@ -3553,6 +3562,16 @@ if (saveStudyYearButton) {
     updateStudyYear
   );
 }
+
+openSettingsButton?.addEventListener("click", () => {
+  settingsPanel.classList.remove("hidden");
+  openSettingsButton.classList.add("hidden");
+});
+
+closeSettingsButton?.addEventListener("click", () => {
+  settingsPanel.classList.add("hidden");
+  openSettingsButton.classList.remove("hidden");
+});
 
 /* =========================================
    QUIZ EVENTS

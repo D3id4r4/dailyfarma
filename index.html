@@ -583,32 +583,6 @@
               Master Farmacie
             </p>
             
-            <div class="profile-study-edit">
-
-              <label for="profile-study-year-select">
-                Studiejaar aanpassen
-              </label>
-
-              <select id="profile-study-year-select">
-                <option value="">Kies je studiejaar</option>
-                <option value="Bachelor 1">Bachelor 1</option>
-                <option value="Bachelor 2">Bachelor 2</option>
-                <option value="Bachelor 3">Bachelor 3</option>
-                <option value="Master 1">Master 1</option>
-                <option value="Master 2">Master 2</option>
-                <option value="Master 3">Master 3</option>
-                <option value="Anders">Anders</option>
-              </select>
-
-              <button
-                id="save-study-year-button"
-                type="button"
-              >
-                Studiejaar opslaan
-              </button>
-
-            </div>
-            
           </div>
 
         </section>
@@ -665,13 +639,7 @@
             </p>
 
           </div>
-            <button
-              id="reset-profile-button"
-              class="reset-profile-button"
-              type="button"
-              >
-              Profiel resetten
-            </button>
+        
         </div>
 
 
@@ -687,6 +655,110 @@
           </p>
 
         </section>
+
+        <button
+         id="open-settings-button"
+         class="settings-button"
+         type="button"
+        >
+          ⚙️ Instellingen
+        </button>
+        <section
+  class="settings-panel hidden"
+  id="settings-panel"
+>
+
+  <div class="settings-header">
+
+    <button
+      id="close-settings-button"
+      class="settings-back-button"
+      type="button"
+    >
+      ←
+    </button>
+
+    <div>
+      <h3>Instellingen</h3>
+      <p>Pas je profiel en voorkeuren aan.</p>
+    </div>
+
+  </div>
+
+
+  <div class="settings-section">
+
+    <h4>Profiel</h4>
+
+    <label for="profile-study-year-select">
+      Studiejaar
+    </label>
+
+    <select id="profile-study-year-select">
+
+      <option value="">
+        Kies je studiejaar
+      </option>
+
+      <option value="Bachelor 1">
+        Bachelor 1
+      </option>
+
+      <option value="Bachelor 2">
+        Bachelor 2
+      </option>
+
+      <option value="Bachelor 3">
+        Bachelor 3
+      </option>
+
+      <option value="Master 1">
+        Master 1
+      </option>
+
+      <option value="Master 2">
+        Master 2
+      </option>
+
+      <option value="Master 3">
+        Master 3
+      </option>
+
+      <option value="Anders">
+        Anders
+      </option>
+
+    </select>
+
+    <button
+      id="save-study-year-button"
+      type="button"
+    >
+      Studiejaar opslaan
+    </button>
+
+  </div>
+
+
+  <div class="settings-section danger-zone">
+
+    <h4>Profiel</h4>
+
+    <p>
+      Hiermee verwijder je je persoonlijke voortgang.
+    </p>
+
+    <button
+      id="reset-profile-button"
+      class="reset-profile-button"
+      type="button"
+    >
+      🗑️ Profiel resetten
+    </button>
+
+  </div>
+
+</section>
 
       </section>
 
