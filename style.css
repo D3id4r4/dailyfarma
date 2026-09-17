@@ -1275,6 +1275,9 @@ body.dark-mode .feedback p,
 body.dark-mode .streak-card p {
   color: #9ca3af;
 }
+body.dark-mode .question {
+  color: #ffffff;
+}
 
 /* ANTWOORDOPTIES */
 body.dark-mode .option {
