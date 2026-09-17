@@ -1809,3 +1809,9 @@ body {
 .reset-profile-button:hover {
   background: #f5dada;
 }
+
+/* DAGELIJKSE VRAAG - DARK MODE */
+
+body.dark-mode .quiz-card .question {
+  color: #ffffff;
+}
