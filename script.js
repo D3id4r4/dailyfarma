@@ -683,7 +683,13 @@ async function updateStreak() {
       "Nieuwe streak gestart: 1"
     );
 
-    return;
+    renderAchievements(1);
+
+    showAchievementToast(
+      achievements[0]
+    );
+
+    return 1;
   }
 
 
@@ -781,6 +787,11 @@ async function updateStreak() {
       newStreak
     );
 
+     const oldLongestStreak =
+    Number(
+      progress.longest_streak || 0
+    );
+
 
   /* =========================================
      OPSLAAN
@@ -812,10 +823,21 @@ async function updateStreak() {
   }
 
 
-  console.log(
+    console.log(
     "Streak bijgewerkt:",
     newStreak
   );
+
+  renderAchievements(
+    newLongestStreak
+  );
+
+  checkForNewAchievement(
+    oldLongestStreak,
+    newLongestStreak
+  );
+
+  return newStreak;
 
 }
 
@@ -1041,6 +1063,24 @@ const closeSettingsButton =
 
 const settingsPanel =
   document.getElementById("settings-panel");
+
+const achievementsGrid =
+  document.getElementById("achievements-grid");
+
+const achievementsCount =
+  document.getElementById("achievements-count");
+
+const achievementToast =
+  document.getElementById("achievement-toast");
+
+const achievementToastIcon =
+  document.getElementById("achievement-toast-icon");
+
+const achievementToastTitle =
+  document.getElementById("achievement-toast-title");
+
+const achievementToastText =
+  document.getElementById("achievement-toast-text");
 
 
 /* =========================================
@@ -1545,6 +1585,181 @@ async function updateStudyYear() {
 }
 
 /* =========================================
+   ACHIEVEMENTS
+========================================= */
+
+const achievements = [
+  {
+    threshold: 1,
+    icon: "🌱",
+    name: "Eerste stap",
+    description: "Je hebt je eerste dag geleerd."
+  },
+  {
+    threshold: 3,
+    icon: "🔥",
+    name: "3 dagen",
+    description: "Je hebt 3 dagen op rij geleerd."
+  },
+  {
+    threshold: 7,
+    icon: "🥉",
+    name: "7 dagen",
+    description: "Je hebt 7 dagen op rij geleerd."
+  },
+  {
+    threshold: 14,
+    icon: "🥈",
+    name: "14 dagen",
+    description: "Je hebt 14 dagen op rij geleerd."
+  },
+  {
+    threshold: 30,
+    icon: "🥇",
+    name: "30 dagen",
+    description: "Je hebt 30 dagen op rij geleerd."
+  },
+  {
+    threshold: 60,
+    icon: "💎",
+    name: "60 dagen",
+    description: "Je hebt 60 dagen op rij geleerd."
+  },
+  {
+    threshold: 100,
+    icon: "👑",
+    name: "100 dagen",
+    description: "Je hebt 100 dagen op rij geleerd."
+  }
+];
+
+
+function renderAchievements(longestStreak) {
+
+  if (!achievementsGrid) {
+    return;
+  }
+
+  const streak =
+    Number(longestStreak || 0);
+
+  const unlockedCount =
+    achievements.filter(
+      achievement =>
+        streak >= achievement.threshold
+    ).length;
+
+  achievementsCount.textContent =
+    `${unlockedCount} / ${achievements.length}`;
+
+  achievementsGrid.innerHTML = "";
+
+  achievements.forEach(
+    achievement => {
+
+      const unlocked =
+        streak >= achievement.threshold;
+
+      const card =
+        document.createElement("div");
+
+      card.className =
+        `achievement-item ${
+          unlocked
+            ? "unlocked"
+            : "locked"
+        }`;
+
+      card.innerHTML =
+        `
+        <div class="achievement-icon">
+          ${achievement.icon}
+        </div>
+
+        <div class="achievement-info">
+
+          <strong>
+            ${achievement.name}
+          </strong>
+
+          <p>
+            ${achievement.description}
+          </p>
+
+        </div>
+
+        ${
+          unlocked
+            ? `<span class="achievement-status">✓</span>`
+            : `<span class="achievement-status">🔒</span>`
+        }
+
+        `;
+
+      achievementsGrid.appendChild(card);
+
+    }
+  );
+}
+
+
+function showAchievementToast(achievement) {
+
+  if (!achievementToast) {
+    return;
+  }
+
+  achievementToastIcon.textContent =
+    achievement.icon;
+
+  achievementToastTitle.textContent =
+    achievement.name;
+
+  achievementToastText.textContent =
+    achievement.description;
+
+  achievementToast.classList.remove(
+    "hidden"
+  );
+
+  setTimeout(() => {
+
+    achievementToast.classList.add(
+      "hidden"
+    );
+
+  }, 4000);
+}
+
+
+function checkForNewAchievement(
+  oldLongestStreak,
+  newLongestStreak
+) {
+
+  const oldStreak =
+    Number(oldLongestStreak || 0);
+
+  const newStreak =
+    Number(newLongestStreak || 0);
+
+  const newlyUnlocked =
+    achievements.find(
+      achievement =>
+        oldStreak < achievement.threshold &&
+        newStreak >= achievement.threshold
+    );
+
+  if (newlyUnlocked) {
+
+    showAchievementToast(
+      newlyUnlocked
+    );
+
+  }
+}
+
+/* =========================================
    LOAD STATISTICS
 ========================================= */
 
@@ -1637,6 +1852,16 @@ async function loadUserStatistics() {
 
     streakNumber.textContent =
       progress.current_streak;
+
+    renderAchievements(
+      progress.longest_streak
+    );
+
+  }
+
+  else {
+
+    renderAchievements(0);
 
   }
 
