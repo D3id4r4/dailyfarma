@@ -1760,6 +1760,138 @@ function checkForNewAchievement(
 }
 
 /* =========================================
+   CHECK STREAK EXPIRATION
+========================================= */
+
+async function checkStreakExpiration() {
+
+  if (!currentUser) {
+    return null;
+  }
+
+  const today =
+    getLocalDateString();
+
+
+  const {
+    data: progress,
+    error
+  } = await supabaseClient
+    .from("user_progress")
+    .select("*")
+    .eq("user_id", currentUser.id)
+    .maybeSingle();
+
+
+  if (error) {
+
+    console.error(
+      "Fout bij controleren streak:",
+      error
+    );
+
+    return null;
+  }
+
+
+  if (!progress) {
+    return null;
+  }
+
+
+  if (!progress.last_activity_date) {
+
+    return progress;
+  }
+
+
+  /* =========================================
+     DATUMVERSCHIL BEREKENEN
+  ========================================= */
+
+  const lastDateParts =
+    progress.last_activity_date
+      .split("-")
+      .map(Number);
+
+  const todayParts =
+    today
+      .split("-")
+      .map(Number);
+
+
+  const lastDate = new Date(
+    lastDateParts[0],
+    lastDateParts[1] - 1,
+    lastDateParts[2]
+  );
+
+  const todayDate = new Date(
+    todayParts[0],
+    todayParts[1] - 1,
+    todayParts[2]
+  );
+
+
+  const difference =
+    Math.round(
+      (
+        todayDate.getTime() -
+        lastDate.getTime()
+      ) /
+      (
+        1000 *
+        60 *
+        60 *
+        24
+      )
+    );
+
+
+  /* =========================================
+     STREAK VERLOPEN
+  ========================================= */
+
+  if (difference >= 2) {
+
+    const {
+      error: updateError
+    } = await supabaseClient
+      .from("user_progress")
+      .update({
+        current_streak: 0
+      })
+      .eq(
+        "user_id",
+        currentUser.id
+      );
+
+
+    if (updateError) {
+
+      console.error(
+        "Fout bij resetten streak:",
+        updateError
+      );
+
+      return progress;
+    }
+
+
+    console.log(
+      "Streak verlopen. Current streak is gereset naar 0."
+    );
+
+
+    progress.current_streak = 0;
+
+  }
+
+
+  return progress;
+}
+
+/* =========================================
    LOAD STATISTICS
 ========================================= */
 
@@ -1823,47 +1955,35 @@ async function loadUserStatistics() {
     `${percentage}%`;
 
 
-  const {
-    data: progress,
-    error: progressError
-  } =
-    await supabaseClient
-      .from("user_progress")
-      .select("*")
-      .eq(
-        "user_id",
-        currentUser.id
-      )
-      .maybeSingle();
-  
-      if (progressError) {
-
-    console.error(
-      "Progress error:",
-      progressError
-    );
-  }
+  const progress =
+  await checkStreakExpiration();
 
 
-  if (progress) {
+if (progress) {
 
-    profileStreak.textContent =
-      progress.current_streak;
+  profileStreak.textContent =
+    progress.current_streak;
 
-    streakNumber.textContent =
-      progress.current_streak;
+  streakNumber.textContent =
+    progress.current_streak;
 
-    renderAchievements(
-      progress.longest_streak
-    );
+  renderAchievements(
+    progress.longest_streak
+  );
 
-  }
+}
 
-  else {
+else {
 
-    renderAchievements(0);
+  profileStreak.textContent =
+    0;
 
-  }
+  streakNumber.textContent =
+    0;
+
+  renderAchievements(0);
+
+}
 
 }
 
