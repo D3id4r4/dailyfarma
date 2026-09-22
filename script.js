@@ -3659,9 +3659,81 @@ function finishCategoryQuiz() {
 
 }
 
+function exitCategoryQuiz() {
+
+  categoryMode = false;
+
+  categoryQuestions = [];
+
+  categoryQuestionIndex = 0;
+
+
+  const todayQuizArea =
+    document.getElementById(
+      "today-quiz-area"
+    );
+
+  const categoryGrid =
+    document.getElementById(
+      "category-grid"
+    );
+
+  const quizCard =
+    document.getElementById(
+      "quiz-card"
+    );
+
+  const scoreInfo =
+    document.getElementById(
+      "score-info"
+    );
+
+
+  if (
+    todayQuizArea &&
+    quizCard &&
+    scoreInfo
+  ) {
+
+    todayQuizArea.appendChild(
+      quizCard
+    );
+
+    todayQuizArea.appendChild(
+      scoreInfo
+    );
+
+  }
+
+
+  if (categoryGrid) {
+
+    categoryGrid.classList.remove(
+      "hidden"
+    );
+
+  }
+
+}
+
 /* =========================================
    NAVIGATION
 ========================================= */
+
+const backToCategoriesButton =
+  document.getElementById(
+    "back-to-categories-button"
+  );
+
+
+backToCategoriesButton?.addEventListener(
+  "click",
+  () => {
+
+    exitCategoryQuiz();
+
+  }
+);
 
 const navItems =
   document.querySelectorAll(
