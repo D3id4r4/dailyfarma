@@ -3781,61 +3781,69 @@ navItems.forEach(
         const targetPage =
           navItem.dataset.page;
         
-          if (
-          targetPage === "today-page" &&
-          categoryMode
-        ) {
+          if (targetPage === "today-page") {
 
-          categoryMode = false;
+            categoryMode = false;
 
-          categoryQuestions = [];
+            categoryQuestions = [];
 
-          categoryQuestionIndex = 0;
+            categoryQuestionIndex = 0;
 
+            const todayQuizArea =
+              document.getElementById(
+                "today-quiz-area"
+              );
 
-          const todayQuizArea =
-            document.getElementById(
-              "today-quiz-area"
-            );
+            const categoryGrid =
+              document.getElementById(
+                "category-grid"
+              );
 
-          const categoryGrid =
-            document.getElementById(
-              "category-grid"
-            );
+            const quizCard =
+              document.getElementById(
+                "quiz-card"
+              );
 
-          const quizCard =
-            document.getElementById(
-              "quiz-card"
-            );
-
-          const scoreInfo =
-            document.getElementById(
-              "score-info"
-            );
-
-
-          if (
-            todayQuizArea &&
-            quizCard &&
-            scoreInfo
-          ) {
-
-            todayQuizArea.appendChild(
-              quizCard
-            );
-
-            todayQuizArea.appendChild(
-              scoreInfo
-            );
-
-          }
+            const scoreInfo =
+              document.getElementById(
+                "score-info"
+              );
 
 
             if (
-              categoryGrid
+              todayQuizArea &&
+              quizCard &&
+              scoreInfo
             ) {
 
+              todayQuizArea.appendChild(
+                quizCard
+              );
+
+              todayQuizArea.appendChild(
+                scoreInfo
+              );
+
+            }
+
+
+            if (categoryGrid) {
+
               categoryGrid.classList.remove(
+                "hidden"
+              );
+
+            }
+
+
+            const backToCategoriesButton =
+              document.getElementById(
+                "back-to-categories-button"
+              );
+
+            if (backToCategoriesButton) {
+
+              backToCategoriesButton.classList.add(
                 "hidden"
               );
 
