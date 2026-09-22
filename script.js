@@ -3678,6 +3678,17 @@ function exitCategoryQuiz() {
 
   categoryQuestionIndex = 0;
 
+    const backToCategoriesButton =
+    document.getElementById(
+      "back-to-categories-button"
+    );
+
+  if (backToCategoriesButton) {
+    backToCategoriesButton.classList.add(
+      "hidden"
+    );
+  }
+
 
   const todayQuizArea =
     document.getElementById(
