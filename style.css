@@ -2486,3 +2486,131 @@ body.dark-mode .back-to-categories-button:hover {
   background: #334155;
   border-color: #667085;
 }
+
+/* =========================================
+   NASLAGWERK
+========================================= */
+
+.reference-card {
+  background: #f8f9fb;
+  border: 1px solid #dce1e7;
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 6px 20px rgba(31, 41, 55, 0.07);
+}
+
+.reference-header {
+  margin-bottom: 18px;
+}
+
+.reference-header h3 {
+  margin: 0 0 6px;
+  font-size: 18px;
+}
+
+.reference-header p {
+  margin: 0;
+  color: #667085;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.reference-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.reference-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  background: #f1f3f6;
+  border: 1px solid #d7dce3;
+  border-radius: 14px;
+  text-decoration: none;
+  color: #1f2937;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.reference-link:hover {
+  background: #e9edf2;
+  border-color: #c5ccd6;
+  transform: translateY(-1px);
+}
+
+.reference-icon {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #e7ecf8;
+  border-radius: 12px;
+  font-size: 21px;
+}
+
+.reference-link strong {
+  display: block;
+  margin-bottom: 3px;
+  font-size: 14px;
+}
+
+.reference-link p {
+  margin: 0;
+  color: #667085;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.reference-arrow {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-size: 18px;
+  color: #667085;
+}
+
+
+/* =========================================
+   NASLAGWERK - DARK MODE
+========================================= */
+
+body.dark-mode .reference-card {
+  background: #1f2937;
+  border-color: #374151;
+  box-shadow: none;
+}
+
+body.dark-mode .reference-header p {
+  color: #9ca3af;
+}
+
+body.dark-mode .reference-link {
+  background: #273449;
+  border-color: #4b5563;
+  color: #f3f4f6;
+}
+
+body.dark-mode .reference-link:hover {
+  background: #304057;
+  border-color: #667085;
+}
+
+body.dark-mode .reference-icon {
+  background: #374151;
+}
+
+body.dark-mode .reference-link p {
+  color: #9ca3af;
+}
+
+body.dark-mode .reference-arrow {
+  color: #9ca3af;
+}
