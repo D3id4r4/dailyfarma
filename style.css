@@ -2431,3 +2431,58 @@ body.dark-mode .achievement-info p {
   }
 
 }
+
+/* TERUG NAAR CATEGORIEËN */
+
+.back-to-categories-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-bottom: 16px;
+  padding: 10px 14px;
+
+  border: 1px solid #d8dee8;
+  border-radius: 12px;
+
+  background: #f8f9fb;
+  color: #4b5563;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.back-to-categories-button:hover {
+  background: #eef1f5;
+  border-color: #c7ced9;
+  transform: translateX(-2px);
+  box-shadow: 0 4px 10px rgba(31, 41, 55, 0.08);
+}
+
+.back-to-categories-button:active {
+  transform: translateX(0);
+  box-shadow: none;
+}
+
+
+/* DARK MODE */
+
+body.dark-mode .back-to-categories-button {
+  background: #273449;
+  border-color: #4b5563;
+  color: #f3f4f6;
+}
+
+body.dark-mode .back-to-categories-button:hover {
+  background: #334155;
+  border-color: #667085;
+}

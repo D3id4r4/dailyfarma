@@ -3358,6 +3358,17 @@ function startCategoryQuiz(
   category
 ) {
 
+  const backToCategoriesButton =
+    document.getElementById(
+      "back-to-categories-button"
+    );
+
+  if (backToCategoriesButton) {
+    backToCategoriesButton.classList.remove(
+      "hidden"
+    );
+  }
+
   const filteredQuestions =
     questions.filter(
       question =>
