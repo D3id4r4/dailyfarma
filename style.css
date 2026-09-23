@@ -2614,3 +2614,47 @@ body.dark-mode .reference-link p {
 body.dark-mode .reference-arrow {
   color: #9ca3af;
 }
+
+.email-reminder-toggle {
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 12px;
+  background: #111827;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+
+.email-reminder-toggle:hover {
+  background: #1f2937;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.12);
+}
+
+.email-reminder-toggle:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.email-reminder-toggle:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+body.dark-mode .email-reminder-toggle {
+  background: #ffffff;
+  color: #111827;
+}
+
+body.dark-mode .email-reminder-toggle:hover {
+  background: #e5e7eb;
+}

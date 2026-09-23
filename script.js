@@ -999,6 +999,14 @@ const profileStudyYearSelect =
 const saveStudyYearButton =
   document.getElementById("save-study-year-button");
 
+const emailReminderToggle =
+  document.getElementById("email-reminder-toggle");
+
+const emailReminderDescription =
+  document.getElementById(
+    "email-reminder-description"
+  );
+
 const profileQuestions =
   document.getElementById(
     "profile-questions"
@@ -1525,11 +1533,18 @@ async function loadUserProfile() {
     "Farmacie Student";
 
   if (profileStudyYearSelect) {
-    profileStudyYearSelect.value =
-      profile.study_year || "";
-  }
+  profileStudyYearSelect.value =
+    profile.study_year || "";
+}
 
-  await loadUserStatistics();
+const emailRemindersEnabled =
+  profile.email_streak_reminders !== false;
+
+updateEmailReminderUI(
+  emailRemindersEnabled
+);
+
+await loadUserStatistics();
 
 }
 
@@ -1582,6 +1597,89 @@ async function updateStudyYear() {
   saveStudyYearButton.disabled = false;
   saveStudyYearButton.textContent =
     "Studiejaar opslaan";
+}
+
+async function updateEmailReminderSetting() {
+
+  if (!currentUser) {
+    return;
+  }
+
+  const currentValue =
+    emailReminderToggle.dataset.enabled === "true";
+
+  const newValue =
+    !currentValue;
+
+  emailReminderToggle.disabled = true;
+
+  const { error } =
+    await supabaseClient
+      .from("profiles")
+      .update({
+        email_streak_reminders: newValue
+      })
+      .eq(
+        "id",
+        currentUser.id
+      );
+
+  if (error) {
+
+    console.error(
+      "Fout bij aanpassen e-mailherinneringen:",
+      error
+    );
+
+    alert(
+      "De instelling kon niet worden aangepast."
+    );
+
+    emailReminderToggle.disabled = false;
+
+    return;
+  }
+
+  updateEmailReminderUI(
+    newValue
+  );
+
+  emailReminderToggle.disabled = false;
+}
+
+
+function updateEmailReminderUI(
+  enabled
+) {
+
+  if (!emailReminderToggle) {
+    return;
+  }
+
+  emailReminderToggle.dataset.enabled =
+    enabled ? "true" : "false";
+
+  if (enabled) {
+
+    emailReminderToggle.textContent =
+      "🔔 E-mailherinneringen: Aan";
+
+    if (emailReminderDescription) {
+      emailReminderDescription.textContent =
+        "Je ontvangt een e-mail wanneer je streak bijna verloopt.";
+    }
+
+  } else {
+
+    emailReminderToggle.textContent =
+      "🔕 E-mailherinneringen: Uit";
+
+    if (emailReminderDescription) {
+      emailReminderDescription.textContent =
+        "Je ontvangt geen e-mailherinneringen wanneer je streak bijna verloopt.";
+    }
+
+  }
 }
 
 /* =========================================
@@ -4009,6 +4107,13 @@ if (saveStudyYearButton) {
   saveStudyYearButton.addEventListener(
     "click",
     updateStudyYear
+  );
+}
+
+if (emailReminderToggle) {
+  emailReminderToggle.addEventListener(
+    "click",
+    updateEmailReminderSetting
   );
 }
 
