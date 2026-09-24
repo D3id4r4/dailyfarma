@@ -570,6 +570,80 @@ button {
 /* =========================
    CATEGORIES
 ========================= */
+/* =========================
+   CATEGORY HEARTS
+========================= */
+
+.category-hearts-card {
+  margin-bottom: 18px;
+  padding: 18px;
+  border: 1px solid #e1e5ec;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 5px 18px rgba(31, 41, 55, 0.05);
+}
+
+.category-hearts-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.category-hearts-header strong {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 15px;
+}
+
+.category-hearts-header p {
+  margin: 0;
+  font-size: 12px;
+  color: #8a919c;
+}
+
+.category-hearts {
+  display: flex;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.category-heart {
+  font-size: 23px;
+  line-height: 1;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease,
+    filter 0.2s ease;
+}
+
+.category-heart.active {
+  opacity: 1;
+}
+
+.category-heart.empty {
+  opacity: 0.2;
+  filter: grayscale(1);
+}
+
+.category-hearts-timer {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #edf0f4;
+  font-size: 11px;
+  color: #8a919c;
+}
+
+.category-card:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.category-card:disabled:hover {
+  background: #ffffff;
+  border-color: #e1e5ec;
+}
 
 .category-grid {
   display: grid;
@@ -2657,4 +2731,32 @@ body.dark-mode .email-reminder-toggle {
 
 body.dark-mode .email-reminder-toggle:hover {
   background: #e5e7eb;
+}
+
+/* =========================
+   CATEGORY HEARTS DARK MODE
+========================= */
+
+body.dark-mode .category-hearts-card {
+  background: #1f2937;
+  border-color: #374151;
+  color: #f3f4f6;
+}
+
+body.dark-mode .category-hearts-header p {
+  color: #9ca3af;
+}
+
+body.dark-mode .category-hearts-timer {
+  border-color: #374151;
+  color: #9ca3af;
+}
+
+body.dark-mode .category-card:disabled {
+  opacity: 0.35;
+}
+
+body.dark-mode .category-card:disabled:hover {
+  background: #1f2937;
+  border-color: #374151;
 }

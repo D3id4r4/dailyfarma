@@ -860,6 +860,487 @@ let hasAnsweredToday = false;
 
 
 /* =========================================
+   CATEGORY HEARTS
+========================================= */
+
+function renderCategoryHearts() {
+
+  if (!categoryHeartsElement) {
+    return;
+  }
+
+  categoryHeartsElement.innerHTML = "";
+
+  for (
+    let i = 0;
+    i < CATEGORY_MAX_HEARTS;
+    i++
+  ) {
+
+    const heart =
+      document.createElement(
+        "span"
+      );
+
+    heart.className =
+      "category-heart";
+
+    if (
+      i < categoryHearts
+    ) {
+
+      heart.classList.add(
+        "active"
+      );
+
+      heart.textContent =
+        "❤️";
+
+    }
+    else {
+
+      heart.classList.add(
+        "empty"
+      );
+
+      heart.textContent =
+        "🖤";
+
+    }
+
+    categoryHeartsElement.appendChild(
+      heart
+    );
+
+  }
+
+
+  if (
+    categoryHeartsDescription
+  ) {
+
+    if (
+      categoryHearts === 0
+    ) {
+
+      categoryHeartsDescription.textContent =
+        "Je hebt geen hartjes meer. Wacht tot er een hartje terugkomt.";
+
+    }
+    else if (
+      categoryHearts === 1
+    ) {
+
+      categoryHeartsDescription.textContent =
+        "Je hebt nog 1 hartje.";
+
+    }
+    else {
+
+      categoryHeartsDescription.textContent =
+        `Je hebt nog ${categoryHearts} hartjes.`;
+
+    }
+
+  }
+
+
+  updateCategoryCards();
+
+}
+
+
+function updateCategoryCards() {
+
+  const cards =
+    document.querySelectorAll(
+      ".category-card"
+    );
+
+  cards.forEach(
+    card => {
+
+      card.disabled =
+        categoryHearts <= 0;
+
+    }
+  );
+
+}
+
+
+function updateCategoryHeartTimer(
+  updatedAt
+) {
+
+  if (!categoryHeartsTimer) {
+    return;
+  }
+
+
+  if (
+    categoryHearts >=
+    CATEGORY_MAX_HEARTS
+  ) {
+
+    categoryHeartsTimer.textContent =
+      "❤️ Alle hartjes beschikbaar";
+
+    return;
+
+  }
+
+
+  if (!updatedAt) {
+
+    categoryHeartsTimer.textContent =
+      "❤️ Herstel: —";
+
+    return;
+
+  }
+
+
+  const updatedTime =
+    new Date(
+      updatedAt
+    ).getTime();
+
+  const now =
+    Date.now();
+
+  const elapsed =
+    now -
+    updatedTime;
+
+
+  const remaining =
+    CATEGORY_HEART_REGEN_MS -
+    (
+      elapsed %
+      CATEGORY_HEART_REGEN_MS
+    );
+
+
+  const minutes =
+    Math.ceil(
+      remaining /
+      (
+        60 *
+        1000
+      )
+    );
+
+
+  if (
+    minutes <= 0
+  ) {
+
+    categoryHeartsTimer.textContent =
+      "❤️ Een hartje komt bijna terug";
+
+  }
+  else {
+
+    const hours =
+      Math.floor(
+        minutes / 60
+      );
+
+    const remainingMinutes =
+      minutes % 60;
+
+
+    if (
+      hours > 0
+    ) {
+
+      categoryHeartsTimer.textContent =
+        `❤️ Volgend hartje over ${hours}u ${remainingMinutes}m`;
+
+    }
+    else {
+
+      categoryHeartsTimer.textContent =
+        `❤️ Volgend hartje over ${remainingMinutes} min`;
+
+    }
+
+  }
+
+}
+
+
+async function loadCategoryHearts() {
+
+  if (!currentUser) {
+    return;
+  }
+
+
+  const {
+    data: profile,
+    error
+  } =
+    await supabaseClient
+      .from("profiles")
+      .select(
+        "category_hearts, category_hearts_updated_at"
+      )
+      .eq(
+        "id",
+        currentUser.id
+      )
+      .maybeSingle();
+
+
+  if (error) {
+
+    console.error(
+      "Fout bij laden categorie-hartjes:",
+      error
+    );
+
+    return;
+
+  }
+
+
+  if (!profile) {
+    return;
+  }
+
+
+  let hearts =
+    Number(
+      profile.category_hearts
+    );
+
+
+  if (
+    !Number.isFinite(
+      hearts
+    )
+  ) {
+
+    hearts =
+      CATEGORY_MAX_HEARTS;
+
+  }
+
+
+  hearts =
+    Math.max(
+      0,
+      Math.min(
+        CATEGORY_MAX_HEARTS,
+        hearts
+      )
+    );
+
+
+  let updatedAt =
+    profile.category_hearts_updated_at;
+
+
+  /*
+    Hartjes herstellen.
+
+    Elk volledig uur komt er
+    maximaal één hartje bij.
+  */
+
+  if (
+    hearts <
+    CATEGORY_MAX_HEARTS &&
+    updatedAt
+  ) {
+
+    const elapsed =
+      Date.now() -
+      new Date(
+        updatedAt
+      ).getTime();
+
+
+    const recoveredHearts =
+      Math.floor(
+        elapsed /
+        CATEGORY_HEART_REGEN_MS
+      );
+
+
+    if (
+      recoveredHearts > 0
+    ) {
+
+      const newHearts =
+        Math.min(
+          CATEGORY_MAX_HEARTS,
+          hearts +
+          recoveredHearts
+        );
+
+
+      const {
+        error: updateError
+      } =
+        await supabaseClient
+          .from("profiles")
+          .update({
+
+            category_hearts:
+              newHearts,
+
+            category_hearts_updated_at:
+              newHearts >=
+              CATEGORY_MAX_HEARTS
+                ? new Date().toISOString()
+                : new Date(
+                    new Date(
+                      updatedAt
+                    ).getTime() +
+                    recoveredHearts *
+                    CATEGORY_HEART_REGEN_MS
+                  ).toISOString()
+
+          })
+          .eq(
+            "id",
+            currentUser.id
+          );
+
+
+      if (
+        updateError
+      ) {
+
+        console.error(
+          "Fout bij herstellen categorie-hartjes:",
+          updateError
+        );
+
+      }
+      else {
+
+        hearts =
+          newHearts;
+
+        updatedAt =
+          newHearts >=
+          CATEGORY_MAX_HEARTS
+            ? new Date().toISOString()
+            : new Date(
+                new Date(
+                  updatedAt
+                ).getTime() +
+                recoveredHearts *
+                CATEGORY_HEART_REGEN_MS
+              ).toISOString();
+
+      }
+
+    }
+
+  }
+
+
+  categoryHearts =
+    hearts;
+
+
+  renderCategoryHearts();
+
+  updateCategoryHeartTimer(
+    updatedAt
+  );
+
+}
+
+
+async function loseCategoryHeart() {
+
+  if (!currentUser) {
+    return;
+  }
+
+
+  /*
+    Veiligheidscontrole.
+  */
+
+  if (
+    categoryHearts <= 0
+  ) {
+
+    return;
+
+  }
+
+
+  const newHearts =
+    Math.max(
+      0,
+      categoryHearts - 1
+    );
+
+
+  const {
+    error
+  } =
+    await supabaseClient
+      .from("profiles")
+      .update({
+
+        category_hearts:
+          newHearts,
+
+        category_hearts_updated_at:
+          new Date().toISOString()
+
+      })
+      .eq(
+        "id",
+        currentUser.id
+      );
+
+
+  if (error) {
+
+    console.error(
+      "Fout bij verliezen categorie-hartje:",
+      error
+    );
+
+    return;
+
+  }
+
+
+  categoryHearts =
+    newHearts;
+
+
+  renderCategoryHearts();
+
+  updateCategoryHeartTimer(
+    new Date().toISOString()
+  );
+
+
+  if (
+    newHearts === 0
+  ) {
+
+    alert(
+      "Je hebt geen hartjes meer. Er komt ieder uur een nieuw hartje terug."
+    );
+
+  }
+
+}
+
+/* =========================================
    CATEGORY QUIZ
 ========================================= */
 
@@ -868,6 +1349,13 @@ let categoryMode = false;
 let categoryQuestions = [];
 
 let categoryQuestionIndex = 0;
+
+let categoryHearts = 3;
+
+const CATEGORY_MAX_HEARTS = 3;
+
+const CATEGORY_HEART_REGEN_MS =
+  60 * 60 * 1000;
 
 
 /* =========================================
@@ -1545,6 +2033,7 @@ updateEmailReminderUI(
 );
 
 await loadUserStatistics();
+await loadCategoryHearts();
 
 }
 
@@ -2593,24 +3082,39 @@ async function submitAnswer() {
 
   else {
 
-    options[
-      selectedAnswer
-    ].classList.add(
-      "incorrect"
-    );
+  options[
+    selectedAnswer
+  ].classList.add(
+    "incorrect"
+  );
 
 
-    feedbackTitle.textContent =
-      "Niet helemaal.";
+  feedbackTitle.textContent =
+    "Niet helemaal.";
 
 
-    feedbackElement.classList.add(
-      "incorrect-feedback"
-    );
+  feedbackElement.classList.add(
+    "incorrect-feedback"
+  );
 
-      playIncorrectSound();
+
+  playIncorrectSound();
+
+
+  /*
+    In de categoriequiz kost een fout antwoord
+    één hartje.
+  */
+
+  if (
+    categoryMode
+  ) {
+
+    await loseCategoryHeart();
 
   }
+
+}
 
 
   feedbackText.textContent =
@@ -2795,6 +3299,16 @@ function launchConfetti() {
 function nextQuestion() {
 
   if (categoryMode) {
+
+    if (
+      categoryHearts <= 0
+    ) {
+
+      finishCategoryQuiz();
+
+      return;
+
+    }
 
     categoryQuestionIndex++;
 
@@ -3424,6 +3938,20 @@ if (nextMonthButton) {
 /* =========================================
    CATEGORY QUIZ
 ========================================= */
+const categoryHeartsElement =
+  document.getElementById(
+    "category-hearts"
+  );
+
+const categoryHeartsDescription =
+  document.getElementById(
+    "category-hearts-description"
+  );
+
+const categoryHeartsTimer =
+  document.getElementById(
+    "category-hearts-timer"
+  );
 
 const categoryCards =
   document.querySelectorAll(
@@ -3455,6 +3983,18 @@ categoryCards.forEach(
 function startCategoryQuiz(
   category
 ) {
+
+  if (
+    categoryHearts <= 0
+  ) {
+
+    alert(
+      "Je hebt geen hartjes meer. Er komt ieder uur een nieuw hartje terug."
+    );
+
+    return;
+
+  }
 
   const backToCategoriesButton =
     document.getElementById(
