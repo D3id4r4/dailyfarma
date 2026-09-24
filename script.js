@@ -1006,8 +1006,10 @@ function updateCategoryHeartTimer(
       updatedAt
     ).getTime();
 
+
   const now =
     Date.now();
+
 
   const elapsed =
     now -
@@ -1015,61 +1017,59 @@ function updateCategoryHeartTimer(
 
 
   const remaining =
-    CATEGORY_HEART_REGEN_MS -
-    (
-      elapsed %
-      CATEGORY_HEART_REGEN_MS
-    );
-
-
-  const minutes =
-    Math.ceil(
-      remaining /
+    Math.max(
+      0,
+      CATEGORY_HEART_REGEN_MS -
       (
-        60 *
-        1000
+        elapsed %
+        CATEGORY_HEART_REGEN_MS
       )
     );
 
 
+  const totalSeconds =
+    Math.ceil(
+      remaining / 1000
+    );
+
+
+  const minutes =
+    Math.floor(
+      totalSeconds / 60
+    );
+
+
+  const seconds =
+    totalSeconds % 60;
+
+
+  const formattedSeconds =
+    String(
+      seconds
+    ).padStart(
+      2,
+      "0"
+    );
+
+
   if (
-    minutes <= 0
+    minutes > 0
   ) {
 
     categoryHeartsTimer.textContent =
-      "❤️ Een hartje komt bijna terug";
+      `❤️ Volgend hartje over ${minutes}:${formattedSeconds}`;
 
   }
   else {
 
-    const hours =
-      Math.floor(
-        minutes / 60
-      );
-
-    const remainingMinutes =
-      minutes % 60;
-
-
-    if (
-      hours > 0
-    ) {
-
-      categoryHeartsTimer.textContent =
-        `❤️ Volgend hartje over ${hours}u ${remainingMinutes}m`;
-
-    }
-    else {
-
-      categoryHeartsTimer.textContent =
-        `❤️ Volgend hartje over ${remainingMinutes} min`;
-
-    }
+    categoryHeartsTimer.textContent =
+      `❤️ Volgend hartje over 0:${formattedSeconds}`;
 
   }
 
 }
 
+let categoryHeartTimerInterval = null;
 
 async function loadCategoryHearts() {
 
@@ -1251,8 +1251,36 @@ async function loadCategoryHearts() {
 
   renderCategoryHearts();
 
-  updateCategoryHeartTimer(
-    updatedAt
+updateCategoryHeartTimer(
+  updatedAt
+);
+
+
+/*
+  Countdown iedere seconde vernieuwen.
+*/
+
+if (
+  categoryHeartTimerInterval
+) {
+
+  clearInterval(
+    categoryHeartTimerInterval
+  );
+
+}
+
+
+categoryHeartTimerInterval =
+  setInterval(
+    () => {
+
+      updateCategoryHeartTimer(
+        updatedAt
+      );
+
+    },
+    1000
   );
 
 }
