@@ -1308,19 +1308,6 @@ startCategoryHeartCountdown(
   updatedAt
 );
 
-
-/*
-  Countdown iedere seconde vernieuwen.
-*/
-
-if (
-  categoryHeartTimerInterval
-) {
-
-  clearInterval(
-    categoryHeartTimerInterval
-  );
-
 }
 
 
