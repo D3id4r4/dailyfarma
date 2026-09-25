@@ -969,27 +969,19 @@ function updateCategoryCards() {
 }
 
 
-function updateCategoryHeartTimer(
-  updatedAt
-) {
+function updateCategoryHeartTimer(updatedAt) {
 
   if (!categoryHeartsTimer) {
     return;
   }
 
-
-  if (
-    categoryHearts >=
-    CATEGORY_MAX_HEARTS
-  ) {
+  if (categoryHearts >= CATEGORY_MAX_HEARTS) {
 
     categoryHeartsTimer.textContent =
       "❤️ Alle hartjes beschikbaar";
 
     return;
-
   }
-
 
   if (!updatedAt) {
 
@@ -997,79 +989,141 @@ function updateCategoryHeartTimer(
       "❤️ Herstel: —";
 
     return;
-
   }
 
-
   const updatedTime =
-    new Date(
-      updatedAt
-    ).getTime();
-
+    new Date(updatedAt).getTime();
 
   const now =
     Date.now();
 
-
   const elapsed =
-    now -
-    updatedTime;
-
+    now - updatedTime;
 
   const remaining =
-    Math.max(
-      0,
-      CATEGORY_HEART_REGEN_MS -
-      (
-        elapsed %
-        CATEGORY_HEART_REGEN_MS
-      )
+    CATEGORY_HEART_REGEN_MS -
+    (
+      elapsed %
+      CATEGORY_HEART_REGEN_MS
     );
-
 
   const totalSeconds =
     Math.ceil(
       remaining / 1000
     );
 
+  if (totalSeconds <= 0) {
+
+    categoryHeartsTimer.textContent =
+      "❤️ Een hartje komt bijna terug";
+
+    return;
+  }
+
+  const hours =
+    Math.floor(
+      totalSeconds / 3600
+    );
 
   const minutes =
     Math.floor(
-      totalSeconds / 60
+      (totalSeconds % 3600) / 60
     );
-
 
   const seconds =
     totalSeconds % 60;
 
+  categoryHeartsTimer.textContent =
+    `❤️ Volgend hartje over ${hours}u ${String(minutes).padStart(2, "0")}m ${String(seconds).padStart(2, "0")}s`;
+}
 
-  const formattedSeconds =
-    String(
-      seconds
-    ).padStart(
-      2,
-      "0"
+function startCategoryHeartCountdown(updatedAt) {
+
+  if (categoryHeartTimerInterval) {
+
+    clearInterval(
+      categoryHeartTimerInterval
     );
 
+    categoryHeartTimerInterval = null;
+  }
+
+  categoryHeartTimerUpdatedAt =
+    updatedAt;
+
+  updateCategoryHeartTimer(
+    categoryHeartTimerUpdatedAt
+  );
 
   if (
-    minutes > 0
+    categoryHearts >=
+    CATEGORY_MAX_HEARTS
   ) {
-
-    categoryHeartsTimer.textContent =
-      `❤️ Volgend hartje over ${minutes}:${formattedSeconds}`;
-
-  }
-  else {
-
-    categoryHeartsTimer.textContent =
-      `❤️ Volgend hartje over 0:${formattedSeconds}`;
-
+    return;
   }
 
+  categoryHeartTimerInterval =
+    setInterval(
+      async () => {
+
+        if (
+          categoryHearts >=
+          CATEGORY_MAX_HEARTS
+        ) {
+
+          clearInterval(
+            categoryHeartTimerInterval
+          );
+
+          categoryHeartTimerInterval =
+            null;
+
+          return;
+        }
+
+        const updatedTime =
+          new Date(
+            categoryHeartTimerUpdatedAt
+          ).getTime();
+
+        const elapsed =
+          Date.now() -
+          updatedTime;
+
+        const remaining =
+          CATEGORY_HEART_REGEN_MS -
+          (
+            elapsed %
+            CATEGORY_HEART_REGEN_MS
+          );
+
+        if (
+          remaining <= 1000
+        ) {
+
+          clearInterval(
+            categoryHeartTimerInterval
+          );
+
+          categoryHeartTimerInterval =
+            null;
+
+          await loadCategoryHearts();
+
+          return;
+        }
+
+        updateCategoryHeartTimer(
+          categoryHeartTimerUpdatedAt
+        );
+
+      },
+      1000
+    );
 }
 
 let categoryHeartTimerInterval = null;
+let categoryHeartTimerUpdatedAt = null;
 
 async function loadCategoryHearts() {
 
@@ -1246,12 +1300,11 @@ async function loadCategoryHearts() {
 
 
   categoryHearts =
-    hearts;
+  hearts;
 
+renderCategoryHearts();
 
-  renderCategoryHearts();
-
-updateCategoryHeartTimer(
+startCategoryHeartCountdown(
   updatedAt
 );
 
@@ -1270,20 +1323,6 @@ if (
 
 }
 
-
-categoryHeartTimerInterval =
-  setInterval(
-    () => {
-
-      updateCategoryHeartTimer(
-        updatedAt
-      );
-
-    },
-    1000
-  );
-
-}
 
 
 async function loseCategoryHeart() {
