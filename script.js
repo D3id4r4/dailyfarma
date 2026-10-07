@@ -5026,6 +5026,480 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* =========================================
+   LEREN - MIGRAINE
+========================================= */
+
+const migraineLearningQuestions = [
+
+  {
+    question:
+      "Welk klachtenpatroon past het beste bij migraine?",
+
+    options: [
+      "Eenzijdige, vaak pulserende hoofdpijn die kan verergeren bij lichamelijke activiteit.",
+      "Aanhoudende koorts met beidezijdige spierpijn.",
+      "Plotselinge pijn in de onderbuik met misselijkheid.",
+      "Jeukende huiduitslag zonder hoofdpijn."
+    ],
+
+    correct: 0,
+
+    explanation:
+      "Migraine gaat vaak gepaard met eenzijdige, pulserende hoofdpijn die kan toenemen bij lichamelijke activiteit."
+  },
+
+  {
+    question:
+      "Welke klachten kunnen naast de hoofdpijn bij migraine voorkomen?",
+
+    options: [
+      "Alleen koorts.",
+      "Misselijkheid en overgevoeligheid voor licht en geluid.",
+      "Alleen hoesten.",
+      "Alleen gewrichtspijn."
+    ],
+
+    correct: 1,
+
+    explanation:
+      "Misselijkheid en overgevoeligheid voor licht en geluid zijn kenmerkende begeleidende klachten bij migraine."
+  },
+
+  {
+    question:
+      "Wat is een aura bij migraine?",
+
+    options: [
+      "Een blijvende verhoging van de lichaamstemperatuur.",
+      "Een allergische reactie op een triptaan.",
+      "Tijdelijke neurologische verschijnselen die voorafgaand aan of tijdens een migraineaanval kunnen optreden.",
+      "Een vorm van medicatieovergebruikshoofdpijn."
+    ],
+
+    correct: 2,
+
+    explanation:
+      "Een aura bestaat uit tijdelijke neurologische verschijnselen, bijvoorbeeld visuele klachten."
+  },
+
+  {
+    question:
+      "Welke geneesmiddelgroepen kunnen volgens de NHG-benadering worden gebruikt bij een migraineaanval?",
+
+    options: [
+      "Alleen antibiotica.",
+      "Alleen benzodiazepinen.",
+      "Pijnstillers, NSAID's of een triptaan, afhankelijk van de situatie.",
+      "Alleen antipsychotica."
+    ],
+
+    correct: 2,
+
+    explanation:
+      "Bij een migraineaanval kunnen onder andere pijnstillers, NSAID's of een triptaan worden gebruikt, afhankelijk van de individuele situatie."
+  },
+
+  {
+    question:
+      "Waarom is frequent gebruik van medicatie bij hoofdpijn een aandachtspunt?",
+
+    options: [
+      "Omdat het altijd leidt tot nierfalen.",
+      "Omdat frequent gebruik kan bijdragen aan medicatieovergebruikshoofdpijn.",
+      "Omdat alle pijnstillers migraine veroorzaken.",
+      "Omdat medicatie de bloeddruk altijd verhoogt."
+    ],
+
+    correct: 1,
+
+    explanation:
+      "Frequent gebruik van hoofdpijnmedicatie kan bijdragen aan medicatieovergebruikshoofdpijn."
+  }
+
+];
+
+
+let currentMigraineQuestion = 0;
+
+let selectedMigraineAnswer = null;
+
+
+const migraineSummary =
+  document.getElementById(
+    "migraine-summary"
+  );
+
+const migraineQuiz =
+  document.getElementById(
+    "migraine-quiz"
+  );
+
+const migraineSummaryButton =
+  document.getElementById(
+    "migraine-summary-button"
+  );
+
+const migraineQuizButton =
+  document.getElementById(
+    "migraine-quiz-button"
+  );
+
+const migraineSummaryBack =
+  document.getElementById(
+    "migraine-summary-back"
+  );
+
+const migraineQuizBack =
+  document.getElementById(
+    "migraine-quiz-back"
+  );
+
+const learningTopics =
+  document.getElementById(
+    "learning-topics"
+  );
+
+const learningQuestion =
+  document.getElementById(
+    "learning-question"
+  );
+
+const learningOptions =
+  document.getElementById(
+    "learning-options"
+  );
+
+const learningFeedback =
+  document.getElementById(
+    "learning-feedback"
+  );
+
+const learningNextButton =
+  document.getElementById(
+    "learning-next-button"
+  );
+
+const learningQuestionNumber =
+  document.getElementById(
+    "learning-question-number"
+  );
+
+const learningQuestionTotal =
+  document.getElementById(
+    "learning-question-total"
+  );
+
+
+function openMigraineSummary() {
+
+  learningTopics.classList.add(
+    "hidden"
+  );
+
+  migraineQuiz.classList.add(
+    "hidden"
+  );
+
+  migraineSummary.classList.remove(
+    "hidden"
+  );
+
+  window.scrollTo(
+    0,
+    0
+  );
+
+}
+
+
+function openMigraineQuiz() {
+
+  learningTopics.classList.add(
+    "hidden"
+  );
+
+  migraineSummary.classList.add(
+    "hidden"
+  );
+
+  migraineQuiz.classList.remove(
+    "hidden"
+  );
+
+  currentMigraineQuestion = 0;
+
+  selectedMigraineAnswer = null;
+
+  learningQuestionTotal.textContent =
+    migraineLearningQuestions.length;
+
+  loadMigraineLearningQuestion();
+
+  window.scrollTo(
+    0,
+    0
+  );
+
+}
+
+
+function closeMigraineLearning() {
+
+  migraineSummary.classList.add(
+    "hidden"
+  );
+
+  migraineQuiz.classList.add(
+    "hidden"
+  );
+
+  learningTopics.classList.remove(
+    "hidden"
+  );
+
+  window.scrollTo(
+    0,
+    0
+  );
+
+}
+
+
+function loadMigraineLearningQuestion() {
+
+  const currentQuestion =
+    migraineLearningQuestions[
+      currentMigraineQuestion
+    ];
+
+  selectedMigraineAnswer = null;
+
+  learningQuestionNumber.textContent =
+    currentMigraineQuestion + 1;
+
+  learningQuestion.textContent =
+    currentQuestion.question;
+
+  learningOptions.innerHTML =
+    "";
+
+  learningFeedback.classList.add(
+    "hidden"
+  );
+
+  learningNextButton.classList.add(
+    "hidden"
+  );
+
+
+  currentQuestion.options.forEach(
+    (
+      option,
+      index
+    ) => {
+
+      const button =
+        document.createElement(
+          "button"
+        );
+
+      button.type =
+        "button";
+
+      button.className =
+        "learning-option";
+
+      button.innerHTML = `
+        <span class="learning-option-letter">
+          ${String.fromCharCode(
+            65 + index
+          )}
+        </span>
+
+        <span>
+          ${option}
+        </span>
+      `;
+
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          selectMigraineAnswer(
+            index
+          );
+
+        }
+      );
+
+
+      learningOptions.appendChild(
+        button
+      );
+
+    }
+  );
+
+}
+
+
+function selectMigraineAnswer(
+  answerIndex
+) {
+
+  if (
+    selectedMigraineAnswer !== null
+  ) {
+
+    return;
+
+  }
+
+  selectedMigraineAnswer =
+    answerIndex;
+
+
+  const currentQuestion =
+    migraineLearningQuestions[
+      currentMigraineQuestion
+    ];
+
+
+  const optionButtons =
+    learningOptions.querySelectorAll(
+      ".learning-option"
+    );
+
+
+  optionButtons.forEach(
+    (
+      button,
+      index
+    ) => {
+
+      if (
+        index === currentQuestion.correct
+      ) {
+
+        button.classList.add(
+          "correct"
+        );
+
+      }
+
+      if (
+        index === answerIndex &&
+        index !== currentQuestion.correct
+      ) {
+
+        button.classList.add(
+          "incorrect"
+        );
+
+      }
+
+    }
+  );
+
+
+  learningFeedback.textContent =
+    currentQuestion.explanation;
+
+  learningFeedback.classList.remove(
+    "hidden"
+  );
+
+
+  if (
+    currentMigraineQuestion <
+    migraineLearningQuestions.length - 1
+  ) {
+
+    learningNextButton.textContent =
+      "Volgende vraag →";
+
+  } else {
+
+    learningNextButton.textContent =
+      "Afronden ✓";
+
+  }
+
+  learningNextButton.classList.remove(
+    "hidden"
+  );
+
+}
+
+
+function nextMigraineLearningQuestion() {
+
+  if (
+    currentMigraineQuestion <
+    migraineLearningQuestions.length - 1
+  ) {
+
+    currentMigraineQuestion++;
+
+    loadMigraineLearningQuestion();
+
+  } else {
+
+    learningQuestion.textContent =
+      "Goed gedaan! 🎉";
+
+    learningOptions.innerHTML = `
+      <div class="learning-feedback">
+        Je hebt de migraine-oefening afgerond.
+        Probeer de samenvatting nog eens te lezen
+        als je bepaalde vragen lastig vond.
+      </div>
+    `;
+
+    learningFeedback.classList.add(
+      "hidden"
+    );
+
+    learningNextButton.classList.add(
+      "hidden"
+    );
+
+  }
+
+}
+
+
+migraineSummaryButton?.addEventListener(
+  "click",
+  openMigraineSummary
+);
+
+
+migraineQuizButton?.addEventListener(
+  "click",
+  openMigraineQuiz
+);
+
+
+migraineSummaryBack?.addEventListener(
+  "click",
+  closeMigraineLearning
+);
+
+
+migraineQuizBack?.addEventListener(
+  "click",
+  closeMigraineLearning
+);
+
+
+learningNextButton?.addEventListener(
+  "click",
+  nextMigraineLearningQuestion
+);
+
+/* =========================================
    BUTTON CLICK SOUND
 ========================================= */
 

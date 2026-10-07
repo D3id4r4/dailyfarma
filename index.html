@@ -482,130 +482,363 @@
 
       </section>
 
+      <!-- LEREN -->
+
+<section
+  class="page"
+  id="learning-page"
+>
+
+  <div class="page-heading">
+
+    <h2>
+      📚 Leren
+    </h2>
+
+    <p>
+      Leer aan de hand van korte samenvattingen en oefenvragen.
+    </p>
+
+  </div>
 
 
-      <!-- CATEGORIEËN -->
+  <!-- OVERZICHT LEERONDERWERPEN -->
 
-      <section
-        class="page"
-        id="categories-page"
-      >
+  <div
+    class="learning-topics"
+    id="learning-topics"
+  >
 
-        <div class="page-heading">
+    <article class="learning-topic-card">
 
-          <h2>
-            🏷️ Categorieën
-          </h2>
+      <div class="learning-topic-icon">
+        🧠
+      </div>
 
-          <p>
-            Kies een onderwerp om te oefenen.
-          </p>
+      <div class="learning-topic-content">
 
-        </div>
+        <span class="learning-topic-label">
+          NHG-Standaard Hoofdpijn
+        </span>
 
+        <h3>
+          Migraine
+        </h3>
 
-        <div class="category-hearts-card">
+        <p>
+          Leer de belangrijkste punten over diagnostiek,
+          behandeling en begeleiding bij migraine.
+        </p>
 
-          <div class="category-hearts-header">
+        <div class="learning-topic-actions">
 
-            <div>
-              <strong>Hartjes</strong>
-
-              <p id="category-hearts-description">
-                Je hebt 3 pogingen beschikbaar.
-              </p>
-            </div>
-
-            <div
-              class="category-hearts"
-              id="category-hearts"
-            >
-              <span class="category-heart active">❤️</span>
-              <span class="category-heart active">❤️</span>
-              <span class="category-heart active">❤️</span>
-            </div>
-
-          </div>
-
-          <div
-            class="category-hearts-timer"
-            id="category-hearts-timer"
+          <button
+            class="learning-action-button"
+            type="button"
+            id="migraine-summary-button"
           >
-            ❤️ Herstel: —
-          </div>
+            📖 Samenvatting
+          </button>
+
+          <button
+            class="learning-action-button primary"
+            type="button"
+            id="migraine-quiz-button"
+          >
+            🧠 Oefenen
+          </button>
 
         </div>
 
+      </div>
 
-        <div class="category-grid" id="category-grid">
+    </article>
 
-          <button
-            class="category-card"
-            type="button"
-            data-category="Farmacotherapie"
-            >
-            <span class="category-icon">💊</span>
-            <h3>Farmacotherapie</h3>
-            <p>Oefen vragen</p>
-          </button>
+  </div>
 
-          <button
-            class="category-card"
-            type="button"
-            data-category="PK/PD"
-            >
-            <span class="category-icon">📈</span>
-            <h3>PK/PD</h3>
-            <p>Oefen vragen</p>
-          </button>
 
-          <button
-            class="category-card"
-            type="button"
-            data-category="Productzorg"
-            >
-            <span class="category-icon">📦</span>
-            <h3>Productzorg</h3>
-            <p>Oefen vragen</p>
-          </button>
+  <!-- MIGRAINE SAMENVATTING -->
 
-          <button
-            class="category-card"
-            type="button"
-            data-category="Wetgeving"
-            >
-            <span class="category-icon">⚖️</span>
-            <h3>Wetgeving</h3>
-            <p>Oefen vragen</p>
-          </button>
+  <section
+    class="learning-detail hidden"
+    id="migraine-summary"
+  >
 
-          <button
-            class="category-card"
-            type="button"
-            data-category="Wetenschappelijk onderzoek"
-            >
-            <span class="category-icon">🔬</span>
-            <h3>Wetenschappelijk onderzoek</h3>
-            <p>Oefen vragen</p>
-          </button>
-          
-        </div>
-        
-        <div
-          id="category-quiz-area"
-          class="category-quiz-area"
+    <button
+      class="learning-back-button"
+      id="migraine-summary-back"
+      type="button"
+    >
+      ← Terug naar leren
+    </button>
+
+
+    <div class="learning-detail-header">
+
+      <span class="learning-detail-icon">
+        🧠
+      </span>
+
+      <div>
+
+        <span class="learning-topic-label">
+          NHG-Standaard Hoofdpijn
+        </span>
+
+        <h2>
+          Migraine
+        </h2>
+
+      </div>
+
+    </div>
+
+
+    <div class="learning-summary">
+
+      <div class="learning-summary-intro">
+
+        <h3>
+          In het kort
+        </h3>
+
+        <p>
+          Migraine is een neurologische aandoening die zich
+          uit in aanvallen van hoofdpijn, vaak met
+          misselijkheid en/of overgevoeligheid voor licht
+          en geluid. De diagnose wordt voornamelijk op basis
+          van het klachtenpatroon gesteld.
+        </p>
+
+      </div>
+
+
+      <div class="learning-summary-section">
+
+        <h3>
+          🧠 Typische kenmerken
+        </h3>
+
+        <ul>
+
+          <li>
+            Vaak eenzijdige hoofdpijn.
+          </li>
+
+          <li>
+            De pijn is vaak kloppend of pulserend.
+          </li>
+
+          <li>
+            De pijn kan toenemen bij lichamelijke activiteit.
+          </li>
+
+          <li>
+            Misselijkheid en/of braken kan optreden.
+          </li>
+
+          <li>
+            Overgevoeligheid voor licht en geluid komt vaak voor.
+          </li>
+
+        </ul>
+
+      </div>
+
+
+      <div class="learning-summary-section">
+
+        <h3>
+          ✨ Aura
+        </h3>
+
+        <p>
+          Bij sommige patiënten wordt migraine voorafgegaan
+          door een aura. Hierbij kunnen bijvoorbeeld tijdelijke
+          visuele verschijnselen optreden.
+        </p>
+
+      </div>
+
+
+      <div class="learning-summary-section">
+
+        <h3>
+          💊 Behandeling van een aanval
+        </h3>
+
+        <p>
+          De behandeling van een migraineaanval is gericht
+          op het verminderen of stoppen van de klachten.
+          Afhankelijk van de situatie kunnen pijnstillers,
+          NSAID's of een triptaan worden gebruikt.
+        </p>
+
+      </div>
+
+
+      <div class="learning-summary-section">
+
+        <h3>
+          🛡️ Preventieve behandeling
+        </h3>
+
+        <p>
+          Bij patiënten met frequente of belastende aanvallen
+          kan preventieve behandeling worden overwogen.
+          Hierbij spelen onder andere de frequentie van de
+          aanvallen, de ernst van de klachten en de voorkeur
+          van de patiënt een rol.
+        </p>
+
+      </div>
+
+
+      <div class="learning-summary-section">
+
+        <h3>
+          ⚠️ Belangrijk voor de apotheek
+        </h3>
+
+        <ul>
+
+          <li>
+            Let op het gebruik van acute medicatie.
+          </li>
+
+          <li>
+            Bespreek het juiste gebruik van de voorgeschreven
+            geneesmiddelen.
+          </li>
+
+          <li>
+            Let op mogelijke bijwerkingen en contra-indicaties.
+          </li>
+
+          <li>
+            Bij frequent gebruik van hoofdpijnmedicatie kan
+            medicatieovergebruikshoofdpijn een aandachtspunt zijn.
+          </li>
+
+        </ul>
+
+      </div>
+
+
+      <div class="learning-source">
+
+        <strong>
+          Bron
+        </strong>
+
+        <p>
+          Samenvatting gebaseerd op de
+          NHG-Standaard Hoofdpijn.
+        </p>
+
+        <a
+          href="https://richtlijnen.nhg.org/"
+          target="_blank"
+          rel="noopener noreferrer"
         >
-          <button
-            id="back-to-categories-button"
-            class="back-to-categories-button hidden"
-            type="button"
-          >
-            <span>←</span> 
-            <span>Terug naar categorieën</span> 
-          </button>
-        </div>
+          Bekijk de NHG-Richtlijnen ↗
+        </a>
 
-      </section>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- MIGRAINE OEFENEN -->
+
+  <section
+    class="learning-detail hidden"
+    id="migraine-quiz"
+  >
+
+    <button
+      class="learning-back-button"
+      id="migraine-quiz-back"
+      type="button"
+    >
+      ← Terug naar leren
+    </button>
+
+
+    <div class="learning-detail-header">
+
+      <span class="learning-detail-icon">
+        🧠
+      </span>
+
+      <div>
+
+        <span class="learning-topic-label">
+          Oefenen
+        </span>
+
+        <h2>
+          Migraine
+        </h2>
+
+      </div>
+
+    </div>
+
+
+    <div
+      class="learning-quiz-card"
+      id="learning-quiz-card"
+    >
+
+      <div class="learning-quiz-progress">
+
+        Vraag
+        <strong id="learning-question-number">
+          1
+        </strong>
+        van
+        <strong id="learning-question-total">
+          5
+        </strong>
+
+      </div>
+
+
+      <h3
+        id="learning-question"
+      >
+        Vraag wordt geladen...
+      </h3>
+
+
+      <div
+        class="learning-options"
+        id="learning-options"
+      ></div>
+
+
+      <div
+        class="learning-feedback hidden"
+        id="learning-feedback"
+      ></div>
+
+
+      <button
+        class="learning-next-button hidden"
+        id="learning-next-button"
+        type="button"
+      >
+        Volgende vraag →
+      </button>
+
+    </div>
+
+  </section>
+
+</section>
 
             <!-- NASLAGWERK -->
 
@@ -822,6 +1055,8 @@
         </section>
 
       </section>
+
+      
 
 
       <!-- PROFIEL -->
@@ -1107,11 +1342,11 @@
 
       <button
         class="nav-item"
-        data-page="categories-page"
+        data-page="learning-page"
         type="button"
       >
         <span class="nav-icon">📚</span>
-        Categorieën
+        Leren
       </button>
 
       <button
